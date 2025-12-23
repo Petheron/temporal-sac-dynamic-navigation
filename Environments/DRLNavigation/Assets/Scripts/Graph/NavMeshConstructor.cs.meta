@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: a6db62b471156d5459619d8b08657f10
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - navMeshManager: {fileID: 11400000, guid: 40b3e0c8104a94b47a5c3ca62612d03b, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

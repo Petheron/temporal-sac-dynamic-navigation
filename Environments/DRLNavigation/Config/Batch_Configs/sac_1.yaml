@@ -1,0 +1,117 @@
+behaviors:
+  NavAgent:
+    trainer_type: sac
+    hyperparameters:
+      batch_size: 32
+      buffer_size: 250000
+      learning_rate: 0.0003
+      learning_rate_schedule: constant
+      buffer_init_steps: 10000
+      tau: 0.005
+      steps_per_update: 4
+      save_replay_buffer: false
+      init_entcoef: 0.2
+    network_settings:
+      normalize: true
+      hidden_units: 512
+      num_layers: 2
+      vis_encode_type: simple
+      memory:
+        sequence_length: 0
+        memory_size: 0
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 20000
+    time_horizon: 1000
+    summary_freq: 10000
+    checkpoint_interval: 25000
+environment_parameters:
+    num_agents: 8
+    step_limit: 1000
+    num_test_eps: 0
+    seed: 429834740
+    seeds: [429834740, 3690292277, 3957050689, 2412994845, 3989801093]
+    
+    time_step_penalty: -0.001
+    failure_penalty: -1.0
+    normalizing_distance: 40
+    euclidean_step_limit: 0
+    euclidean_step_scale_factor: 0.5
+    
+    observation_stacks: 4
+    num_action_repeat: 4
+    
+    encode_vector_inputs: false
+    use_visual_dense_layers: false
+    
+    observe_rel_pos: 1
+    observe_global_pos: 0
+    observe_velocity: 1
+    observe_acceleration: 1
+    observe_last_actions: 0
+    
+    use_raycasts: 0
+    ray_length: 20
+    
+    use_depthmap_sensor: 0
+    depthmap_width: 9
+    depthmap_height: 9
+    depthmap_max_angle: 45
+    
+    2D_init_channel: 32
+    2D_kernel_size: 3
+    2D_stride: 2
+    2D_padding: 1
+    2D_num_convs: 2
+    
+    occupancy_map_grid_size: 101
+    occupancy_map_cell_size: 1.0
+    occupancy_map_cell_size_buffer: 10
+    
+    use_boxcast_sensor: 1
+    bc_depth: 9
+    bc_height: 9
+    bc_width: 9
+    bc_rotate_with_agent: 0
+    
+    3D_init_channel: 32
+    3D_kernel_size: 3
+    3D_stride: 2
+    3D_padding: 1
+    3D_num_convs: 2
+    
+    3D_use_embedding: 0
+    3D_num_embedding_dims: 16
+    3D_embedding_dictionary_size: 2
+    
+    use_positional_embedding_sensor: 0
+    positional_encoding_embedding_size: 16
+    use_sestini_encoding: 1
+    
+    agent_type: 1
+    level_type: 5
+    store_positions: 1
+    use_dynamics: 0
+    use_dynamics_tag: 0
+    
+    sampling_type: 0
+    sampling_half_height: 30.0
+    poisson_min_radius: 5.0
+    
+    use_momentum: 0
+    use_pitch: 1
+    use_double_jump: 1
+    use_slide: 0
+    use_wallride: 0
+    
+    replay_buffer_type: basic
+    use_cer: true
+    n_step: 3
+    
+    max_goal_distance: 40
+    use_curriculum: false
+    num_curriculum_steps: 10
+    curriculum_success_rate: 0.9

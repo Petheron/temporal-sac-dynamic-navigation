@@ -1,0 +1,73 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Store
+
+
+struct CellData
+{
+    uint value;
+    float3 position;
+    float4 rotation;
+};
+
+#if defined(UNITY_PROCEDURAL_INSTANCING_ENABLED)
+StructuredBuffer<CellData> _CellDataBuffer;
+// RWStructuredBuffer<uint> _SampleBuffer;
+#endif
+
+float4 _Colors[8];
+int _GridSize;
+float _CellSize;
+
+[numthreads(8,8,8)]
+void Store (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+}
+
+void ConfigureProcedural () {
+    #if defined(UNITY_PROCEDURAL_INSTANCING_ENABLED)
+    float3x3 r = float3x3(_CellDataBuffer[unity_InstanceID].rotation)*_CellSize
+    float3x4 m = float3x4(r.c0,r.c1,r.c2,_CellDataBuffer[unity_InstanceID].position);
+    unity_ObjectToWorld._m00_m01_m02_m03 = m._m00_m01_m02_m03;
+    unity_ObjectToWorld._m10_m11_m12_m13 = m._m10_m11_m12_m13;
+    unity_ObjectToWorld._m20_m21_m22_m23 = m._m20_m21_m22_m23;
+    unity_ObjectToWorld._m30_m31_m32_m33 = float4(0.0, 0.0, 0.0, 1.0);
+    #endif
+}
+
+float3 CalculatePosition()
+{
+    #if defined(UNITY_PROCEDURAL_INSTANCING_ENABLED)
+    // idx = i + Xk + XZj
+    float _InvGridSize = 1.0/_GridSize;
+    int x = unity_InstanceID % _GridSize;
+    int y = unity_InstanceID * _InvGridSize * _InvGridSize % _GridSize;
+    int z = unity_InstanceID * _InvGridSize % _GridSize;
+    return float3(x, y, z) * _CellSize;
+    #else
+    return float3(0.0,0.0,0.0);
+    #endif
+}
+
+float4 GetColor()
+{
+    #if defined(UNITY_PROCEDURAL_INSTANCING_ENABLED)
+    uint value = _CellDataBuffer[unity_InstanceID];
+    return _Colors[clamp(value,0,_Colors.length())];
+    #else
+    return _Colors[0];
+    #endif
+}
+
+void ShaderGraphFunction_float(float3 In, out float3 Out, out float4 FractalColor)
+{
+    Out = In;
+    FractalColor = GetColor();
+}
+
+void ShaderGraphFunction_half(half3 In, out half3 Out, out half4 FractalColor)
+{
+    Out = In;
+    FractalColor = GetColor();
+}
+

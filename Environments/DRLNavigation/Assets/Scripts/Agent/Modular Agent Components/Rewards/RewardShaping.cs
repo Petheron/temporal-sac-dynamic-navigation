@@ -1,0 +1,110 @@
+﻿using System;
+using Unity.MLAgents;
+using UnityEngine;
+
+public class RewardShaping:MonoBehaviour, IModularAgentComponent
+{
+    private float episodeReturn;
+    
+    private AgentProperties agentProp;
+    private EnvironmentParameters envParams;
+
+    // Sparse Rewards
+    private float successReward;
+    private float failurePenalty;
+    private float timeoutPenalty;
+    private float euclideanTimoutPenalty;
+
+    // Dense Rewards 
+    private float timeStepPenalty;
+    [SerializeField] private EuclideanReward euclideanReward;
+    
+    // Testing
+    [ReadOnly, SerializeField] private float currentReturn;
+    [ReadOnly, SerializeField] private float lastEpisodeReturn;
+
+    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    {
+        agentProp = agentProperties;
+        envParams = environmentParameters;
+        InitializeAgentProperties();
+        InitializeEnvironmentParameters();
+        if(euclideanReward) euclideanReward.Initialize(envParams, agentProp);
+    }
+
+    public void InitializeAgentProperties()
+    {
+        if (agentProp == null) return;
+        
+        successReward = agentProp.GOAL_REWARD;
+        failurePenalty = agentProp.FAIL_PENALTY;
+        timeoutPenalty = agentProp.TIMEOUT_PENALTY;
+        euclideanTimoutPenalty = agentProp.EUCLIDEAN_TIMEOUT_PENALTY;
+        
+        timeStepPenalty = agentProp.TIME_STEP_PENALTY;
+    }
+
+    public void InitializeEnvironmentParameters()
+    {
+        if (envParams == null) return;
+        
+        successReward = envParams.GetWithDefault("success_reward", successReward);
+        failurePenalty = envParams.GetWithDefault("failure_penalty", failurePenalty);
+        timeStepPenalty = envParams.GetWithDefault("time_step_penalty", timeStepPenalty);
+    }
+
+    private float GetSparseReward(EndCondition endCondition)
+    {
+        float reward = 0f;
+        switch (endCondition)
+        {
+            case EndCondition.Success: 
+                reward += successReward;
+                if(euclideanReward) reward += euclideanReward.GetRemainingEuclideanReward();
+                break;
+            case EndCondition.Failure: 
+                reward += failurePenalty;
+                break;
+            case EndCondition.EucFail: 
+                reward+= euclideanTimoutPenalty;
+                break;
+            case EndCondition.Timeout:
+                reward += timeoutPenalty;
+                break;
+            default:
+                break;
+        }
+        currentReturn += reward;
+        return reward;
+    }
+
+    private float GetDenseReward()
+    {
+        float r = 0f;
+        r += timeStepPenalty;
+        if (euclideanReward)
+        {
+            r += euclideanReward.GetEuclideanReward();
+        }
+        currentReturn += r;
+        return r;
+    }
+
+    public float GetReward(EndCondition endCondition)
+    {
+        return GetDenseReward() + GetSparseReward(endCondition);
+    }
+
+    public void Reset()
+    {
+        lastEpisodeReturn = currentReturn;
+        currentReturn = 0f;
+        if(euclideanReward) euclideanReward.Reset();
+    }
+
+
+    public bool IsEuclideanTimeout()
+    {
+        return euclideanReward && euclideanReward.IsEuclideanTimeout();
+    }
+}

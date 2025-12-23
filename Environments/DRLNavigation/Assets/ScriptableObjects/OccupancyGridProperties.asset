@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074678a1a15f9cc4e8bf67a6f72183c0, type: 3}
+  m_Name: OccupancyGridProperties
+  m_EditorClassIdentifier: 
+  occupancyGridDataType: 0
+  gridSize: 128
+  cellSize: 1
+  levelsOfDetail: 1
+  cellSizePercentageBuffer: 1
+  useTagIndicesForVoxelValue: 1
+  colliderMask:
+    serializedVersion: 2
+    m_Bits: 1
+  visionTags: 3
+  visibleMutatorTypes: 0
+  rotateSampleWithAgent: 0
+  maxRotatorSampleSize: 30
+  correctForbiddenAngles: 0
+  forceToCubeEdge: 0
+  scaleRadius: 0
+  untaggedColor: {r: 0, g: 0, b: 1, a: 1}
+  solidColor: {r: 1, g: 1, b: 0, a: 1}
+  dynamicsColor: {r: 1, g: 0, b: 0.8683319, a: 1}
+  affectorColor: {r: 0, g: 1, b: 0.92573977, a: 1}
+  affectedColor: {r: 1, g: 0.5, b: 0.75, a: 1}
+  agentColor: {r: 0, g: 1, b: 0, a: 1}
+  dangerColor: {r: 1, g: 0, b: 0, a: 1}
+  mutatorColor: {r: 1, g: 1, b: 1, a: 1}
+  volumeAlpha: 0.309
+  untaggedAlpha: 0.075
+  edgeAlpha: 0.3

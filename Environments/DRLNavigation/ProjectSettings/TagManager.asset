@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Agent
+  - Goal
+  - Solid
+  - Affector
+  - Danger
+  - Affected
+  - Independent
+  - Dynamic
+  - Water
+  - Ice
+  - Static
+  - Slow
+  - DeathField
+  - LowGrav
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Dynamic
+  - Water
+  - UI
+  - Agent
+  - Goal
+  - Wall
+  - Vizualizer
+  - Deathfield
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

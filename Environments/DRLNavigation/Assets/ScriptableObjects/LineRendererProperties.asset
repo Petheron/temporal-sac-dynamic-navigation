@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9ed56ab3e8ace47adbb9cd1ab8802d, type: 3}
+  m_Name: LineRendererProperties
+  m_EditorClassIdentifier: 
+  lineWidth: 0.2
+  numCornerVertices: 4
+  numCapVertices: 3
+  simplifyTolerance: 0.25
+  successColor: {r: 0, g: 0, b: 1, a: 1}
+  failureColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  timeOutColor: {r: 1, g: 0, b: 0, a: 1}
+  eucFailColor: {r: 0, g: 1, b: 0, a: 1}
+  navmeshColor: {r: 1, g: 0, b: 1, a: 1}
+  jumpColor: {r: 1, g: 0.25, b: 0, a: 1}
+  dashDensity: 0
