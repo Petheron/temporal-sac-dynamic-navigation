@@ -74,7 +74,7 @@ public class NavigationMeshAgent : MonoBehaviour
         goalIdx = positions.Item3;
         goalPosition = positions.Item4;
         
-        Debug.Log($"NavMeshAgent Trajectory: Start: {startIdx}, Goal: {goalIdx}");
+        // Debug.Log($"NavMeshAgent Trajectory: Start: {startIdx}, Goal: {goalIdx}");
         
         return true;
     }

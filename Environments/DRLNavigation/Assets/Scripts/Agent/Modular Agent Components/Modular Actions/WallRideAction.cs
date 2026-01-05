@@ -31,21 +31,21 @@ public class WallRideAction:PassiveAgentAction
     
     private bool IsGrounded => movement.IsGrounded;
 
-    private float Acceleration => movement.currentMutator.AccelerationModifier * wallRideAccelModifier* acceleration;
+    private float Acceleration => wallRideAccelModifier * acceleration;
 
     private bool IsWallVertical(Vector3 normal) => 1f - Mathf.Abs(Vector3.Dot(Vector3.up, normal)) >= wallVerticalSensitivity;
     
     public override void InitializeAgentProperties()
     {
-        acceleration = agentProps.MOVE_ACCELERATION;
-        wallVerticalSensitivity = agentProps.WALL_VERTICALITY_SENSITIVITY;
-        wallCheckDistance = agentProps.WALL_CHECK_DISTANCE;
-        layerMask = agentProps.GROUNDED_MASK;
+        acceleration = ModularAgentProps.MOVE_ACCELERATION;
+        wallVerticalSensitivity = ModularAgentProps.WALL_VERTICALITY_SENSITIVITY;
+        wallCheckDistance = ModularAgentProps.WALL_CHECK_DISTANCE;
+        layerMask = ModularAgentProps.GROUNDED_MASK;
 
-        wallRideAccelModifier = agentProps.WALLRIDE_ACCELERATION_MODIFIER;
-        wallRideFallSpeedModifier = agentProps.WALLRIDE_FALL_SPEED_MODIFIER;
-        wallRideGravityModifier = agentProps.WALLRIDE_GRAVITY_MODIFIER;
-        wallRideDragModifier = agentProps.WALLRIDE_DRAG_MODIFIER;
+        wallRideAccelModifier = ModularAgentProps.WALLRIDE_ACCELERATION_MODIFIER;
+        wallRideFallSpeedModifier = ModularAgentProps.WALLRIDE_FALL_SPEED_MODIFIER;
+        wallRideGravityModifier = ModularAgentProps.WALLRIDE_GRAVITY_MODIFIER;
+        wallRideDragModifier = ModularAgentProps.WALLRIDE_DRAG_MODIFIER;
     }
 
     public override void InitializeEnvironmentParameters()

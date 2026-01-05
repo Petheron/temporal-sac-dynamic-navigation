@@ -30,7 +30,7 @@ public class JumpMovement:BaseMovement
         complexActionPositions[ComplexActionType.Jump] = new List<Vector3>();
     }
 
-    public override void SetDefaultMovementProperties(AgentProperties agentProperties)
+    public override void SetDefaultMovementProperties(MonolithicAgentProperties agentProperties)
     {
         base.SetDefaultMovementProperties(agentProperties);
         

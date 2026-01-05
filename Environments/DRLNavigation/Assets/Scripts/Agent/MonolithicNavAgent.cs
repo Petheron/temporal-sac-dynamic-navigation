@@ -72,25 +72,25 @@ public class MonolithicNavAgent : Agent
     private StatsRecorder statsRecorder;
     private EnvironmentParameters envParams;
 
-    [Header("Euclidean Reward Settings")]
-    [SerializeField] private int euclideanCounter;
+    [Header("Euclidean Reward Values")]
+    [SerializeField, ReadOnly] private int euclideanCounter;
     [Tooltip("Distance in which agent is considered to have reached the goal.")]
     private float epsilonDistance = 1.0f;
     private float euclideanStepScaleFactor = 1.0f;
     private int euclideanStepLimit = (int) 1e6;
-    [SerializeField] private float initialEuclideanDistance = Mathf.Infinity;
-    [SerializeField] private float bestEuclideanDistance = Mathf.Infinity;
-    [SerializeField] private float lastEuclideanImprovement;
-    [SerializeField] private float cumulativeEuclideanReturn;
-    [SerializeField] private float currentReturn;
-    [SerializeField] private float lastReturn;
+    [SerializeField, ReadOnly] private float initialEuclideanDistance = Mathf.Infinity;
+    [SerializeField, ReadOnly] private float bestEuclideanDistance = Mathf.Infinity;
+    [SerializeField, ReadOnly] private float lastEuclideanImprovement;
+    [SerializeField, ReadOnly] private float cumulativeEuclideanReturn;
+    [SerializeField, ReadOnly] private float currentReturn;
+    [SerializeField, ReadOnly] private float lastReturn;
 
     [Header("Goal Spawning Settings")]
-    [SerializeField] private float startingDistance;
-    [SerializeField] private float maxGoalDistance = 100f;
+    [SerializeField, ReadOnly] private float startingDistance;
+    [SerializeField, ReadOnly] private float maxGoalDistance = 100f;
 
     [Header("Scriptable Objects")]
-    public AgentProperties agentProp;
+    public MonolithicAgentProperties monolithicAgentProperties;
     public VertexSamplingManager vertexSamplingManager;
     public AgentEvaluationManager agentEvaluationManager;
 
@@ -105,6 +105,14 @@ public class MonolithicNavAgent : Agent
 
     [Header("Testing")] 
     public bool drawGizmos = true;
+    
+    public event Action OnAgentPostInitialize;
+    private bool isInitialized;
+    private bool allowEnable;
+    [HideInInspector] public CameraController cameraController;
+    [SerializeField] private Camera visionCam;
+    [HideInInspector] public AgentSpawner agentSpawner;
+    private bool allowReset = true;
 
     private void Awake()
     {
@@ -121,6 +129,16 @@ public class MonolithicNavAgent : Agent
         agentCollider ??= GetComponent<CapsuleCollider>(); 
         
         Academy.Instance.AgentPreStep += MakeRequest;
+        
+        InitializeAgentComponents();
+    }
+
+    public void InitializeAgentComponents()
+    {
+        if (OnAgentPostInitialize?.GetInvocationList()==null) return;
+        if (isInitialized) return;
+        isInitialized = true;
+        OnAgentPostInitialize?.Invoke();
     }
 
     /// <summary>
@@ -129,6 +147,8 @@ public class MonolithicNavAgent : Agent
     /// <param name="academyStepCount"></param>
     private void MakeRequest(int academyStepCount)
     {
+        if (!allowEnable) return;
+        
         isRequestingDecision = IsDeciding(academyStepCount);
         if (isRequestingDecision)
         {
@@ -166,7 +186,7 @@ public class MonolithicNavAgent : Agent
         envParams = Academy.Instance.EnvironmentParameters;
         statsRecorder = Academy.Instance.StatsRecorder;
 
-        actionRepeatRate = (int) envParams.GetWithDefault("action_repetition", agentProp.ACTION_REPETITION);
+        actionRepeatRate = (int) envParams.GetWithDefault("action_repetition", monolithicAgentProperties.ACTION_REPETITION);
 
         var behaviourParams = GetComponent<BehaviorParameters>();
         numActions = behaviourParams.BrainParameters.ActionSpec.NumContinuousActions;
@@ -178,7 +198,7 @@ public class MonolithicNavAgent : Agent
             movement.actionRepeatRate = actionRepeatRate;
             numMovementObs = movement.SetNumObs();
             
-            movement.SetDefaultMovementProperties(agentProp);
+            movement.SetDefaultMovementProperties(monolithicAgentProperties);
             heuristicInputHandler.UpdateActionIndices(movement.usePitch);
         }
         
@@ -200,7 +220,7 @@ public class MonolithicNavAgent : Agent
     /// </summary>
     private void InitializeSensors()
     {
-        var obsStacks = agentProp.OBS_STACKS;
+        var obsStacks = monolithicAgentProperties.OBS_STACKS;
         
         if (vectorSensorManager)
         {
@@ -241,23 +261,20 @@ public class MonolithicNavAgent : Agent
     /// Initialize environment for the beginning of a new episode.
     /// </summary>
     public void Reset(){
+        
+        // If not regenerating or changing level, prevent multiple resets before first observation has been made.
+        if (Academy.Instance.AutomaticSteppingEnabled)
+        {
+            if (!allowReset) return;
+            allowReset = false;
+        }
+        
         int newSeed = (int)envParams.GetWithDefault("seed",defaultSeed);
         if (useRandomSeed) newSeed = Random.Range(0, (int) Mathf.Pow(2, 16));
         SetSeed(newSeed);
 
-        stepLimit = (int)envParams.GetWithDefault("step_limit",agentProp.DEFAULT_STEP_LIMIT);
-        failurePenalty = envParams.GetWithDefault("failure_penalty",agentProp.FAIL_PENALTY);
-        timeStepPenalty = envParams.GetWithDefault("time_step_penalty",agentProp.TIME_STEP_PENALTY);
+        InitializeEnvironmentParameters();
 
-        euclideanStepLimit = (int) envParams.GetWithDefault("euclidean_step_limit", agentProp.EUCLIDEAN_STEP_MAX);
-        euclideanStepScaleFactor = envParams.GetWithDefault("euclidean_step_scale_factor", agentProp.EUCLIDEAN_REWARD_SCALE_FACTOR);
-        epsilonDistance = agentProp.EPSILON_DISTANCE;
-        
-        maxGoalDistance = envParams.GetWithDefault("max_goal_distance",agentProp.MAX_GOAL_DISTANCE);
-        normalizingGoalDistance = envParams.GetWithDefault("normalizing_distance", agentProp.NORMALIZATION_DISTANCE);
-        
-        useEdgeGoal = envParams.GetWithDefault("use_edge_goal", agentProp.SAMPLE_GOAL_VERTEX_FROM_START_VERTEX ? 1.0f : 0f) > 0f;
-        
         currentReturn = 0f;
 
         SampleVertices();
@@ -267,6 +284,22 @@ public class MonolithicNavAgent : Agent
         
         // reset trajectory list at initial position (prevent error on env.reset())
         trajectoryAgentPos = new List<Vector3> {transform.position};
+    }
+
+    private void InitializeEnvironmentParameters()
+    {
+        stepLimit = (int)envParams.GetWithDefault("step_limit",monolithicAgentProperties.DEFAULT_STEP_LIMIT);
+        failurePenalty = envParams.GetWithDefault("failure_penalty",monolithicAgentProperties.FAIL_PENALTY);
+        timeStepPenalty = envParams.GetWithDefault("time_step_penalty",monolithicAgentProperties.TIME_STEP_PENALTY);
+
+        euclideanStepLimit = (int) envParams.GetWithDefault("euclidean_step_limit", monolithicAgentProperties.EUCLIDEAN_STEP_MAX);
+        euclideanStepScaleFactor = envParams.GetWithDefault("euclidean_step_scale_factor", monolithicAgentProperties.EUCLIDEAN_REWARD_SCALE_FACTOR);
+        epsilonDistance = monolithicAgentProperties.EPSILON_DISTANCE;
+        
+        maxGoalDistance = envParams.GetWithDefault("max_goal_distance",monolithicAgentProperties.MAX_GOAL_DISTANCE);
+        normalizingGoalDistance = envParams.GetWithDefault("normalizing_distance", monolithicAgentProperties.NORMALIZATION_DISTANCE);
+        
+        useEdgeGoal = envParams.GetWithDefault("use_edge_goal", monolithicAgentProperties.SAMPLE_GOAL_VERTEX_FROM_START_VERTEX ? 1.0f : 0f) > 0f;
     }
 
     private void InitializeObservationsToCollect()
@@ -435,7 +468,7 @@ public class MonolithicNavAgent : Agent
     public void Interrupt()
     {
         statsRecorder.Add("timeout_fail_rate",1);
-        EndEpisode();
+        EpisodeInterrupted();
     }
 
     private void ProcessTrajectoryPositions()
@@ -467,7 +500,7 @@ public class MonolithicNavAgent : Agent
 
         if (IsEuclideanTimeout())
         {
-            reward += agentProp.EUCLIDEAN_TIMEOUT_PENALTY;
+            reward += monolithicAgentProperties.EUCLIDEAN_TIMEOUT_PENALTY;
         }
         
         return reward;
@@ -516,7 +549,7 @@ public class MonolithicNavAgent : Agent
     private float CalculateEuclideanDistanceReward(float distance)
     {
         var dist = distance;
-        if (agentProp.NORMALIZE_EUCLIDEAN_DISTANCE)
+        if (monolithicAgentProperties.NORMALIZE_EUCLIDEAN_DISTANCE)
         {
             dist /= initialEuclideanDistance;
         }
@@ -531,7 +564,7 @@ public class MonolithicNavAgent : Agent
     /// <returns></returns>
     private float CalculateGoalReward()
     {
-        float reward = MathF.Abs(agentProp.GOAL_REWARD);
+        float reward = MathF.Abs(monolithicAgentProperties.GOAL_REWARD);
         reward += CalculateEuclideanDistanceReward(bestEuclideanDistance);
         reward += GetCumulativeEuclideanReward();
         return reward;
@@ -543,6 +576,7 @@ public class MonolithicNavAgent : Agent
     /// <returns></returns>
     private bool IsAgentAtGoal()
     {
+        if (!goalTransform) return false;
         return Vector3.Distance(movement.baseTransform.position, goalTransform.position) <= epsilonDistance;
     }
 
@@ -603,14 +637,14 @@ public class MonolithicNavAgent : Agent
         }
 
         // If not evaluating, either select at random or from a given starting index
-        startVertex = agentProp.IS_AGENT_POSITION_RANDOM
+        startVertex = monolithicAgentProperties.IS_AGENT_POSITION_RANDOM
             ? vertexSamplingManager.SampleVertex(maxGoalDistance, Vector3.positiveInfinity)
             : vertexSamplingManager.GetVertex(defaultStartIndex);
         var startPosition = startVertex.GetPosition();
         
         goalVertex = useEdgeGoal? 
             vertexSamplingManager.SampleEdgeVertex(startVertex) :
-            vertexSamplingManager.SampleVertex(maxGoalDistance, startPosition, agentProp.EPSILON_DISTANCE);
+            vertexSamplingManager.SampleVertex(maxGoalDistance, startPosition, monolithicAgentProperties.EPSILON_DISTANCE);
         
         startIndex = vertexSamplingManager.GetVertexIndex(startVertex);
         goalIndex = vertexSamplingManager.GetVertexIndex(goalVertex);
@@ -626,7 +660,7 @@ public class MonolithicNavAgent : Agent
         Vector3 pos = startVertex.GetPosition() + posOffset;
 
         Quaternion rot = 
-            agentProp.IS_AGENT_ROTATION_RANDOM? 
+            monolithicAgentProperties.IS_AGENT_ROTATION_RANDOM? 
             Quaternion.Euler(0f, Random.value * 360f, 0f):
             Quaternion.identity;
 
@@ -647,6 +681,8 @@ public class MonolithicNavAgent : Agent
     /// </summary>
     private void ResetGoalPosition()
     {
+        if (!goalVertex) return;
+        if (!goalTransform) return;
         goalTransform.position = goalVertex.GetPosition();
         goalTransform.SetParent(goalVertex.GetParent());
     }
@@ -656,7 +692,8 @@ public class MonolithicNavAgent : Agent
     /// </summary>
     private void ResetEuclideanDistance()
     {
-        startingDistance = Mathf.Max(Vector3.Distance(movement.baseTransform.position, goalTransform.position), Mathf.Epsilon);
+        
+        startingDistance = goalTransform ? Mathf.Max(Vector3.Distance(movement.baseTransform.position, goalTransform.position), Mathf.Epsilon) : Mathf.Epsilon;
         initialEuclideanDistance = startingDistance;
         bestEuclideanDistance = initialEuclideanDistance;
         lastEuclideanImprovement = 0f;
@@ -672,6 +709,7 @@ public class MonolithicNavAgent : Agent
     /// <returns>Improvement of the best euclidean distance.</returns>
     private float UpdateEuclideanDistance()
     {
+        if (!goalTransform) return 0f;
         euclideanCounter++;
         float improvement = 0f;
         float currentDist = Vector3.Distance(movement.baseTransform.position, goalTransform.position);
@@ -692,6 +730,60 @@ public class MonolithicNavAgent : Agent
         }
         var continuousActionsOut = actionsOut.ContinuousActions;
         heuristicInputHandler.HeuristicInputsToActions(continuousActionsOut);
+    }
+    
+    
+    public void AllowEnable()
+    {
+        // Toggle enabled state of gameobject to force OnEnable() to be called.
+        if(enabled) enabled = false;
+        allowEnable = true;
+        enabled = true;
+        
+    }
+
+    protected override void OnEnable()
+    {
+        if(!allowEnable) return;
+        base.OnEnable();
+    }
+
+    protected override void OnDisable()
+    {
+        if(!allowEnable) return;
+        RemoveCamera();
+        UnsubscribeToEvents();
+        base.OnDisable();
+    }
+
+    public void SetCameraController(CameraController camCon)
+    {
+        if (!camCon) return;
+        cameraController = camCon;
+        if(!visionCam) visionCam = GetComponentInChildren<Camera>();
+        if (!visionCam) return;
+        cameraController.AddCamera(visionCam);
+    }
+
+    private void RemoveCamera()
+    {
+        if (!visionCam) return;
+        if (!cameraController) return;
+        cameraController.RemoveCamera(visionCam);
+    }
+
+    private void UnsubscribeToEvents()
+    {
+        OnAgentPostInitialize = null;
+        agentSpawner.OnAcademySteppingEnabled -= AllowEnable;
+    }
+    
+    private void OnDestroy()
+    {
+        if (agentEvaluationManager)
+        {
+            agentEvaluationManager.TryInvokeOnEvalComplete();
+        }
     }
 
 

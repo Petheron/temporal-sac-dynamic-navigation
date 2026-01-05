@@ -20,8 +20,7 @@ public class MasterController : MonoBehaviour
     public event ControllerEvent SpawnAgents;
     public event ControllerEvent InitializeOccupancyMap;
     public event ControllerEvent InitializeTrajectoryPositionsRecorder;
-
-    public bool test = false;
+    
     [FormerlySerializedAs("trajectoryVisualizer")] public GameObject trajectoryVisualizerPrefab;
 
     private void Awake()

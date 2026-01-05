@@ -27,12 +27,12 @@ public class DashAction : AgentAction
 
     public override void InitializeAgentProperties()
     {
-        if(!agentProps) return;
+        if(!ModularAgentProps) return;
         inputSize = 1;
-        dashDistance = agentProps.DASH_DISTANCE;
-        dashDuration = agentProps.DASH_DURATION;
-        dashCooldownDuration = agentProps.DASH_COOLDOWN;
-        dashLayerMask = agentProps.GROUNDED_MASK;
+        dashDistance = ModularAgentProps.DASH_DISTANCE;
+        dashDuration = ModularAgentProps.DASH_DURATION;
+        dashCooldownDuration = ModularAgentProps.DASH_COOLDOWN;
+        dashLayerMask = ModularAgentProps.GROUNDED_MASK;
     }
 
     public override void InitializeEnvironmentParameters()

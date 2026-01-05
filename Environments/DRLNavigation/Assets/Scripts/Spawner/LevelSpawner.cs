@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public enum LevelType
@@ -10,17 +11,14 @@ public enum LevelType
     Tower,
     JumpPad,
     CannonLevel,
-    MovingPlatV2,
-    MovingPlatV3,
-    MovingPlatV2Indep,
-    MovingPlatV3Indep,
+    MovingPlatVertical,
+    MovingPlatHorizontal,
+    MovingPlatVerticalIndep,
+    MovingPlatHorizontalIndep,
     Crumbling,
     WallRide,
     WallClimb,
     WallJump,
-    SlowLevel,
-    WaterLevel,
-    IceLevel,
     PCG
 }
 
@@ -32,7 +30,7 @@ public class LevelSpawner : MonoBehaviour
     
     [Header(" Level Sequence Properties")]
     [SerializeField] private bool useLevelSequence;
-    [SerializeField] private List<LevelType> levelSequence;
+    private List<LevelType> levelSequence;
     private int sequenceDelay = 1000;
     private int previousStepCount;
     
@@ -44,10 +42,10 @@ public class LevelSpawner : MonoBehaviour
     private AgentSpawner agentSpawner;
 
     [Header("External References")]
-    private EnvironmentParameters envParams;
-    [SerializeField] private AgentProperties agentProperties;
+    [SerializeField] private EnvironmentProperties environmentProperties;
     [SerializeField] private VertexSamplingManager vertexSamplingManager;
     [SerializeField] private AgentEvaluationManager agentEvaluationManager;
+    private EnvironmentParameters envParams;
     
     // Events
     public MasterController.ControllerEvent LevelSpawned;
@@ -96,8 +94,8 @@ public class LevelSpawner : MonoBehaviour
     private void SetSequenceProperties()
     {
         useLevelSequence = envParams.GetWithDefault("use_level_sequence", useLevelSequence?1:0)>0;
-        sequenceDelay = (int)envParams.GetWithDefault("level_sequence_delay", agentProperties.LEVEL_SEQUENCE_DELAY);
-
+        sequenceDelay = (int)envParams.GetWithDefault("level_sequence_delay", environmentProperties.LEVEL_SEQUENCE_DELAY);
+        levelSequence = environmentProperties.LEVEL_SEQUENCE;
         if (levelSequence.Count == 0) useLevelSequence = false;
 
         if (useLevelSequence) levelType = levelSequence[0];
@@ -132,7 +130,7 @@ public class LevelSpawner : MonoBehaviour
         currentLevel.name = levelPrefab.name;
         
         // Get the Level class (all levels should have this), and initialize all components and cameras.
-        currentLevel.Initialize(envParams, agentProperties, occupancyMap, cameraController);
+        currentLevel.Initialize(envParams, environmentProperties, occupancyMap, cameraController);
     }
 
     /// <summary>
@@ -189,7 +187,7 @@ public class LevelSpawner : MonoBehaviour
     /// </summary>
     private void SetSeed()
     {
-        int seed = (int)envParams.GetWithDefault("seed", agentProperties.DEFAULT_SEED);
+        int seed = (int)envParams.GetWithDefault("seed", environmentProperties.DEFAULT_SEED);
         Random.InitState(seed);
         Academy.Instance.InferenceSeed = seed;
     }

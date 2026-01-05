@@ -10,7 +10,7 @@ public class ModularDecisionRequesterComponent:MonoBehaviour,IModularAgentCompon
     public bool takeActionsBetweenDecisions = true;
     
     protected EnvironmentParameters environmentParameters;
-    protected AgentProperties agentProperties;
+    protected ModularAgentProperties modularAgentProperties;
     private ModularNavAgent agent;
     private bool hasSubscribed;
 
@@ -19,17 +19,17 @@ public class ModularDecisionRequesterComponent:MonoBehaviour,IModularAgentCompon
         agent = GetComponent<ModularNavAgent>();
     }
 
-    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
         this.environmentParameters = environmentParameters;
-        this.agentProperties = agentProperties;
+        this.modularAgentProperties = modularAgentProperties;
         InitializeAgentProperties();
         InitializeEnvironmentParameters();
     }
 
     public virtual void InitializeAgentProperties()
     {
-        if (!agentProperties) return;
+        if (!modularAgentProperties) return;
         
     }
 

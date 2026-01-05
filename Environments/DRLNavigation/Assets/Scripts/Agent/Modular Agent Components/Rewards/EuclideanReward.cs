@@ -17,12 +17,12 @@ public class EuclideanReward:MonoBehaviour, IModularAgentComponent
     private float initialEuclideanDistance = Mathf.Infinity;
     private float bestEuclideanDistance = Mathf.Infinity;
     
-    private AgentProperties agentProp;
+    private ModularAgentProperties modularAgentProp;
     private EnvironmentParameters envParams;
     
-    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
-        agentProp = agentProperties;
+        modularAgentProp = modularAgentProperties;
         envParams = environmentParameters;
         InitializeAgentProperties();
         InitializeEnvironmentParameters();
@@ -30,10 +30,10 @@ public class EuclideanReward:MonoBehaviour, IModularAgentComponent
 
     public void InitializeAgentProperties()
     {
-        if (agentProp == null) return;
-        euclideanStepScaleFactor = agentProp.EUCLIDEAN_REWARD_SCALE_FACTOR;
-        euclideanStepLimit = agentProp.EUCLIDEAN_STEP_MAX;
-        normalizeEucDistance = agentProp.NORMALIZE_EUCLIDEAN_DISTANCE;
+        if (modularAgentProp == null) return;
+        euclideanStepScaleFactor = modularAgentProp.EUCLIDEAN_REWARD_SCALE_FACTOR;
+        euclideanStepLimit = modularAgentProp.EUCLIDEAN_STEP_MAX;
+        normalizeEucDistance = modularAgentProp.NORMALIZE_EUCLIDEAN_DISTANCE;
     }
 
     public void InitializeEnvironmentParameters()

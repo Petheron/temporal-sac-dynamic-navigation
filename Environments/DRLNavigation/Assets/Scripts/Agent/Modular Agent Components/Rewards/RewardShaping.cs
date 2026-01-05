@@ -6,7 +6,7 @@ public class RewardShaping:MonoBehaviour, IModularAgentComponent
 {
     private float episodeReturn;
     
-    private AgentProperties agentProp;
+    private ModularAgentProperties modularAgentProp;
     private EnvironmentParameters envParams;
 
     // Sparse Rewards
@@ -23,25 +23,25 @@ public class RewardShaping:MonoBehaviour, IModularAgentComponent
     [ReadOnly, SerializeField] private float currentReturn;
     [ReadOnly, SerializeField] private float lastEpisodeReturn;
 
-    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
-        agentProp = agentProperties;
+        modularAgentProp = modularAgentProperties;
         envParams = environmentParameters;
         InitializeAgentProperties();
         InitializeEnvironmentParameters();
-        if(euclideanReward) euclideanReward.Initialize(envParams, agentProp);
+        if(euclideanReward) euclideanReward.Initialize(envParams, modularAgentProp);
     }
 
     public void InitializeAgentProperties()
     {
-        if (agentProp == null) return;
+        if (modularAgentProp == null) return;
         
-        successReward = agentProp.GOAL_REWARD;
-        failurePenalty = agentProp.FAIL_PENALTY;
-        timeoutPenalty = agentProp.TIMEOUT_PENALTY;
-        euclideanTimoutPenalty = agentProp.EUCLIDEAN_TIMEOUT_PENALTY;
+        successReward = modularAgentProp.GOAL_REWARD;
+        failurePenalty = modularAgentProp.FAIL_PENALTY;
+        timeoutPenalty = modularAgentProp.TIMEOUT_PENALTY;
+        euclideanTimoutPenalty = modularAgentProp.EUCLIDEAN_TIMEOUT_PENALTY;
         
-        timeStepPenalty = agentProp.TIME_STEP_PENALTY;
+        timeStepPenalty = modularAgentProp.TIME_STEP_PENALTY;
     }
 
     public void InitializeEnvironmentParameters()

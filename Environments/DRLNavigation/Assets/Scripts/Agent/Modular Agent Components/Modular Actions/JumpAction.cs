@@ -30,24 +30,24 @@ public class JumpAction : AgentAction
     private bool CanCoyoteJump => !coyoteTimer.IsFinished;
     private bool IsGrounded => movement.IsGrounded;
 
-    public override void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public override void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
-        base.Initialize(environmentParameters, agentProperties);
+        base.Initialize(environmentParameters, modularAgentProperties);
         foreach (var passive in passiveAgentActions)
         {
             if(!passive) continue;
-            passive.Initialize(environmentParameters,agentProperties);
+            passive.Initialize(environmentParameters,modularAgentProperties);
         }
         passiveAgentActions.RemoveAll(action => !action.usePassiveAction);
     }
 
     public override void InitializeAgentProperties()
     {
-        if(!agentProps) return;
+        if(!ModularAgentProps) return;
         inputSize = 1;
-        jumpVelocity = agentProps.JUMP_VELOCITY;
-        minimumJumpDuration = agentProps.MINIMUM_JUMP_DURATION;
-        coyoteTime = agentProps.COYOTE_TIME_DURATION;
+        jumpVelocity = ModularAgentProps.JUMP_VELOCITY;
+        minimumJumpDuration = ModularAgentProps.MINIMUM_JUMP_DURATION;
+        coyoteTime = ModularAgentProps.COYOTE_TIME_DURATION;
     }
 
     public override void InitializeEnvironmentParameters()

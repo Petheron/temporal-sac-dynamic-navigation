@@ -30,21 +30,21 @@ public class WallClimbAction:PassiveAgentAction
     private Vector3[] movementVectors;
     private Vector3 wallNormal;
 
-    private float Acceleration => movement.currentMutator.AccelerationModifier * acceleration;
-    private float WallClimbAcceleration => movement.currentMutator.AccelerationModifier * wallClimbAcceleration;
+    private float Acceleration => acceleration;
+    private float WallClimbAcceleration => wallClimbAcceleration;
     private bool IsGrounded => movement.IsGrounded;
     private bool RestartWallClimbTimer => !isWallClimbing && wallClimbTimer.HasStarted && IsGrounded;
     
     public override void InitializeAgentProperties()
     {
-        acceleration = agentProps.MOVE_ACCELERATION;
-        wallClimbAcceleration = agentProps.WALLCLIMB_ACCELERATION;
-        wallClimbSensitivity = agentProps.WALLCLIMB_SENSITIVITY;
-        wallVerticalSensitivity = agentProps.WALL_VERTICALITY_SENSITIVITY;
-        wallClimbCheckDistance = agentProps.WALL_CHECK_DISTANCE;
-        wallClimbFallSpeedModifier = agentProps.WALLCLIMB_FALL_SPEED_MODIFIER;
-        wallClimbDuration = agentProps.WALLJUMP_DURATION;
-        layerMask = agentProps.GROUNDED_MASK;
+        acceleration = ModularAgentProps.MOVE_ACCELERATION;
+        wallClimbAcceleration = ModularAgentProps.WALLCLIMB_ACCELERATION;
+        wallClimbSensitivity = ModularAgentProps.WALLCLIMB_SENSITIVITY;
+        wallVerticalSensitivity = ModularAgentProps.WALL_VERTICALITY_SENSITIVITY;
+        wallClimbCheckDistance = ModularAgentProps.WALL_CHECK_DISTANCE;
+        wallClimbFallSpeedModifier = ModularAgentProps.WALLCLIMB_FALL_SPEED_MODIFIER;
+        wallClimbDuration = ModularAgentProps.WALLCLIMB_DURATION;
+        layerMask = ModularAgentProps.GROUNDED_MASK;
     }
     
     public override void InitializeEnvironmentParameters()

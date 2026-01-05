@@ -27,10 +27,10 @@ public class WallJumpAction:PassiveAgentAction
     
     public override void InitializeAgentProperties()
     {
-        wallJumpVelocity = agentProps.WALLJUMP_VELOCITY;
-        wallVerticalSensitivity = agentProps.WALL_VERTICALITY_SENSITIVITY;
-        wallCheckDistance = agentProps.WALL_CHECK_DISTANCE;
-        layerMask = agentProps.GROUNDED_MASK;
+        wallJumpVelocity = ModularAgentProps.WALLJUMP_VELOCITY;
+        wallVerticalSensitivity = ModularAgentProps.WALL_VERTICALITY_SENSITIVITY;
+        wallCheckDistance = ModularAgentProps.WALL_CHECK_DISTANCE;
+        layerMask = ModularAgentProps.GROUNDED_MASK;
     }
     
     public override void InitializeEnvironmentParameters()

@@ -17,7 +17,7 @@ public class HeuristicInputHandler:MonoBehaviour
 
     public float maximumMouseDelta = 5.0f;
 
-    private AgentProperties m_AgentProperties;
+    private ModularAgentProperties m_ModularAgentProperties;
 
     int forwardIndex = 0;
     int strafeIndex = 1;

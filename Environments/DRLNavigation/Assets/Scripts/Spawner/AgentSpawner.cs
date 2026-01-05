@@ -14,6 +14,7 @@ public enum SpawnerMode
 public class AgentSpawner : MonoBehaviour
 {
     [Header("General Properties")] 
+    [Space(10)]
     [SerializeField] private SpawnerMode spawnerMode = SpawnerMode.Training;
     [SerializeField] private List<AgentType> agentTypesToSpawn = new() {};
     [SerializeField] private int numAgentsPerSpawnType = 1;
@@ -25,7 +26,7 @@ public class AgentSpawner : MonoBehaviour
     
     private float agentSize = 0f;
     private float agentSpacing = 0f;
-    [SerializeField, ReadOnly] private List<GameObject> agentList;
+    private List<GameObject> agentList;
     private EnvironmentParameters envParams;
     
     [SerializeField] private AgentEvaluationManager agentEvaluationManager;
@@ -87,7 +88,7 @@ public class AgentSpawner : MonoBehaviour
         MasterController.isSpawning = false;
     }
 
-    private void SpawnAgents(int nAgents)
+    private void SpawnAgents(int numAgents)
     {
         // Debug.Log("Spawning Agents");
         // Reset existing agents and return
@@ -99,11 +100,7 @@ public class AgentSpawner : MonoBehaviour
         }
         
         // print("is Spawning agents");
-        
-        int totalNumAgents = nAgents * agentTypesToSpawn.Count;
-        
-        // agentList = new GameObject[totalNumAgents];
-        int mod = Mathf.CeilToInt(Mathf.Sqrt(totalNumAgents));
+        int mod = Mathf.CeilToInt(Mathf.Sqrt(numAgents * agentTypesToSpawn.Count));
         
         float agentWidth = (agentSize+agentSpacing);
         float halfWidth = mod*agentWidth;
@@ -118,23 +115,28 @@ public class AgentSpawner : MonoBehaviour
             var agentPrefab = agentPrefabArray[(int) agentType];
             var model = agentModelArray[(int) agentType];
             
-            for(int i = 0;i<nAgents;i++)
+            for(int i = 0;i<numAgents;i++)
             {
                 GameObject agentGameObject = Instantiate(agentPrefab,Vector3.zero,Quaternion.identity,transform.parent);
                 agentGameObject.name = agentPrefab.name + i;
                 float xPos = 2.0f*(i%mod)*agentWidth -halfWidth + agentWidth;
                 float yPos = halfWidth - 2.0f*((int)(i/mod))*agentWidth - agentWidth;
                 agentGameObject.transform.localPosition = new Vector3(xPos,yPos,0f);
-                // agentList[i] = agentGameObject;
                 agentList.Add(agentGameObject);
             
                 var navAgent = agentGameObject.GetComponentInChildren<MonolithicNavAgent>();
                 if (navAgent)
                 {
                     navAgent.agentID = i;
-                    navAgent.numAgents = nAgents;
+                    navAgent.numAgents = numAgents;
                     navAgent.agentType = agentType;
+                    navAgent.agentSpawner = this;
                     navAgent.agentEvaluationManager = spawnerMode==SpawnerMode.Evaluating ? agentEvaluationManager: null;
+                    navAgent.OnAgentPostInitialize += IncrementInitializedAgentsCount;
+                    OnAcademySteppingEnabled += navAgent.AllowEnable;
+                    navAgent.InitializeAgentComponents();
+                    navAgent.SetCameraController(cameraController);
+                    
                 }
                 else
                 {
@@ -142,7 +144,7 @@ public class AgentSpawner : MonoBehaviour
                     if (modAgent)
                     {
                         modAgent.agentID = i;
-                        modAgent.numAgents = nAgents;
+                        modAgent.numAgents = numAgents;
                         modAgent.agentType = agentType;
                         modAgent.agentSpawner = this;
                         modAgent.agentEvaluationManager = spawnerMode==SpawnerMode.Evaluating ? agentEvaluationManager: null;
@@ -193,41 +195,39 @@ public class AgentSpawner : MonoBehaviour
         if (agentList.Count == 0) return;
         if (agentList.Count == 0) return;
         
-        foreach (var go in agentList)
+        foreach (var agent in agentList)
         {
-            // if (!go) continue;
-            var navAgent = go.GetComponentInChildren<MonolithicNavAgent>();
+            MonolithicNavAgent navAgent = agent.GetComponentInChildren<MonolithicNavAgent>();
             if (navAgent)
             {
                 navAgent.Interrupt();
                 continue;
             }
-            var modAgent = go.GetComponentInChildren<ModularNavAgent>();
+            
+            ModularNavAgent modAgent = agent.GetComponentInChildren<ModularNavAgent>();
             if (modAgent)
             {
                 modAgent.SetCameraController(cameraController);
                 modAgent.Interrupt();
             }
         }
-        // Debug.Log("Agents interrupted");
     }
 
-    public void ResetAgents()
+    private void ResetAgents()
     {
         if (agentList == null) return;
         if (agentList.Count == 0) return;
         
-        // Debug.Log("Resetting agents");
-        
-        foreach (var go in agentList)
+        foreach (var agent in agentList)
         {
-            var navAgent = go.GetComponentInChildren<MonolithicNavAgent>();
+            var navAgent = agent.GetComponentInChildren<MonolithicNavAgent>();
             if (navAgent)
             {
+                navAgent.SetCameraController(cameraController);
                 navAgent.Reset();
                 continue;
             }
-            var modAgent = go.GetComponentInChildren<ModularNavAgent>();
+            var modAgent = agent.GetComponentInChildren<ModularNavAgent>();
             if (modAgent)
             {
                 modAgent.SetCameraController(cameraController);
@@ -239,7 +239,7 @@ public class AgentSpawner : MonoBehaviour
     public void IncrementInitializedAgentsCount()
     {
         numAgentsInitialized++;
-        if (numAgentsInitialized < numAgentsPerSpawnType) return;
+        if (numAgentsInitialized < agentTypesToSpawn.Count * numAgentsPerSpawnType) return;
         numAgentsInitialized = 0;
         Academy.Instance.AutomaticSteppingEnabled = true;
         OnAcademySteppingEnabled?.Invoke();

@@ -34,22 +34,20 @@ public class MoveAction:AgentAction
     private Vector3[] movementVectors;
 
     private bool IsGrounded => movement.IsGrounded;
-    private float Acceleration => movement.currentMutator?.AccelerationModifier * acceleration ?? acceleration;
-    private float Friction => movement.currentMutator?.FrictionModifier * friction ?? friction;
-    private float AirControl => movement.currentMutator?.AirControlModifier * airControl ?? airControl;
-
-    public float sprintModifier = 1.0f;
+    private float Acceleration => acceleration;
+    private float Friction => friction;
+    private float AirControl => airControl;
 
 
-    public override void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public override void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
-        base.Initialize(environmentParameters, agentProperties);
+        base.Initialize(environmentParameters, modularAgentProperties);
         
         if (passiveActions!=null)
         {
             foreach (var passiveAction in passiveActions)
             {
-                passiveAction.Initialize(envParams,agentProps);
+                passiveAction.Initialize(envParams,ModularAgentProps);
             }
             passiveActions.RemoveAll(action => !action.usePassiveAction);
         }
@@ -57,13 +55,13 @@ public class MoveAction:AgentAction
 
     public override void InitializeAgentProperties()
     {
-        if (!agentProps) return;
+        if (!ModularAgentProps) return;
         inputSize = useStrafe? 2:1;
         
-        defaultAcceleration = agentProps.MOVE_ACCELERATION;
-        defaultFriction = agentProps.MOVE_FRICTION;
-        defaultAirControl = agentProps.MOVE_AIR_CONTROL;
-        defaultTurnAroundFactor = agentProps.MOVE_TURNAROUND_FACTOR;
+        defaultAcceleration = ModularAgentProps.MOVE_ACCELERATION;
+        defaultFriction = ModularAgentProps.MOVE_FRICTION;
+        defaultAirControl = ModularAgentProps.MOVE_AIR_CONTROL;
+        defaultTurnAroundFactor = ModularAgentProps.MOVE_TURNAROUND_FACTOR;
     }
 
     protected override void InitializeActionTypes()
@@ -178,11 +176,6 @@ public class MoveAction:AgentAction
 
         if (!IsGrounded) magnitude *= AirControl;
 
-        if (direction == MoveDirection.Forward && input > 0)
-        {
-            magnitude *= sprintModifier;
-        }
-
         return magnitude * movementVector;
     }
 
@@ -208,7 +201,5 @@ public class MoveAction:AgentAction
         friction = defaultFriction;
         airControl = defaultAirControl;
         turnAroundFactor = defaultTurnAroundFactor;
-
-        sprintModifier = 1.0f;
     }
 }

@@ -11,7 +11,7 @@ public class AgentAction:MonoBehaviour, IModularAgentComponent
     protected List<ModularActionType> actionTypes;
     protected Rigidbody agentRigidbody;
     protected EnvironmentParameters envParams;
-    protected AgentProperties agentProps;
+    protected ModularAgentProperties ModularAgentProps;
     protected ModularMovement movement;
     protected Transform cameraRotationTransform;
     protected List<Vector3> actionUsedPositions;
@@ -21,10 +21,10 @@ public class AgentAction:MonoBehaviour, IModularAgentComponent
 
     public virtual void Perform() {}
 
-    public virtual void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public virtual void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
         envParams = environmentParameters;
-        agentProps = agentProperties;
+        ModularAgentProps = modularAgentProperties;
         agentRigidbody = GetComponent<Rigidbody>();
         movement = GetComponent<ModularMovement>();
         if (movement) cameraRotationTransform = movement.cameraFollowTransform;

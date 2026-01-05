@@ -10,7 +10,7 @@ public class Level:MonoBehaviour
     private LevelGenerator levelGenerator;
     private LevelDynamicsManager levelDynamicsManager;
 
-    private AgentProperties agentProperties;
+    private EnvironmentProperties environmentProperties;
     private EnvironmentParameters environmentParameters;
     
     private void Awake()
@@ -21,10 +21,10 @@ public class Level:MonoBehaviour
         levelGenerator = GetComponentInChildren<LevelGenerator>();
     }
 
-    public void Initialize(EnvironmentParameters environmentParams, AgentProperties agentProps, OccupancyMap occupancyMap, CameraController cameraController)
+    public void Initialize(EnvironmentParameters environmentParams, EnvironmentProperties environmentProps, OccupancyMap occupancyMap, CameraController cameraController)
     {
         environmentParameters = environmentParams;
-        agentProperties = agentProps;
+        environmentProperties = environmentProps;
 
         // Setup camera controller
         if (cameraController)
@@ -38,7 +38,7 @@ public class Level:MonoBehaviour
         // Setup level dynamics
         if (levelDynamicsManager)
         {
-            bool useDynamics = environmentParameters.GetWithDefault("use_dynamics", agentProperties.USE_DYNAMICS?1.0f:0f) > 0f;
+            bool useDynamics = environmentParameters.GetWithDefault("use_dynamics", environmentProperties.USE_DYNAMICS?1.0f:0f) > 0f;
             levelDynamicsManager.SetLevelDynamics(useDynamics);
         }
         

@@ -20,10 +20,10 @@ public class LeapAction : AgentAction
 
     public override void InitializeAgentProperties()
     {
-        if(!agentProps) return;
+        if(!ModularAgentProps) return;
         inputSize = 1;
-        leapVelocity = agentProps.LEAP_VELOCITY;
-        leapAngleMin = agentProps.LEAP_ANGLE_MINIMUM;
+        leapVelocity = ModularAgentProps.LEAP_VELOCITY;
+        leapAngleMin = ModularAgentProps.LEAP_ANGLE_MINIMUM;
         leapCosAngleMin = LeapCosAngleMin;
     }
 

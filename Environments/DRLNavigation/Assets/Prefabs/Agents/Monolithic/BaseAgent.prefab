@@ -1342,10 +1342,12 @@ MonoBehaviour:
   lastReturn: 0
   startingDistance: 0
   maxGoalDistance: 100
-  agentProp: {fileID: 11400000, guid: 8645d67ce7804bc42a6439fa6a8931b6, type: 2}
+  monolithicAgentProperties: {fileID: 11400000, guid: 64191161fbee2f44a818d5575d404ece, type: 2}
   vertexSamplingManager: {fileID: 11400000, guid: e988b31c99841c144aba0e575208ba4f, type: 2}
   agentEvaluationManager: {fileID: 11400000, guid: faf7b75025e65b94184a3eb87994452f, type: 2}
   drawGizmos: 1
+  cameraController: {fileID: 0}
+  visionCam: {fileID: 5227538161144008609}
 --- !u!114 &2421628782203965629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,14 +1364,11 @@ MonoBehaviour:
   useMomentum: 0
   observeVel: 1
   observeAccel: 1
-  numObs: 0
   forwardIndex: 0
   strafeIndex: 1
   yawIndex: 2
   pitchIndex: 3
   jumpIndex: 4
-  sprintIndex: 5
-  crouchIndex: 6
   defaultForwardSpeed: 60
   defaultStrafeSpeed: 60
   airSpeedModifier: 0.5
@@ -1392,8 +1391,8 @@ MonoBehaviour:
   originalCameraPosition: {x: 0, y: 0.375, z: 0}
   actionRepeatRate: 1
   velocityLimit: 100
+  groundRigidbody: {fileID: 5954710818401956268}
   rbVelocity: {x: 0, y: 0, z: 0}
-  groundRigidbody: {fileID: 0}
   cachedGroundVelocity: {x: 0, y: 0, z: 0}
   initialCachedGroundVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &3843063151448487071

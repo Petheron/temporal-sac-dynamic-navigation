@@ -59,7 +59,7 @@ public struct VisibleData<T> where T:Enum
             div *= 10;
             n++;
         }
-        SetData((T)(object)total);
+        SetData((T)(total as object));
         return true;
     }
 }
@@ -171,7 +171,7 @@ public class VisibleTags
         return visibleMutatorData.Data.HasFlag(type);
     }
 
-    public int IndexFromValue(MutatorType type)
+    private int IndexFromValue(MutatorType type)
     {
         for (int i = 0; i < visibleMutatorData.Values.Length; i++)
         {
@@ -183,7 +183,7 @@ public class VisibleTags
         return -1;
     }
 
-    public int IndexFromValue(VisionTag tag)
+    private int IndexFromValue(VisionTag tag)
     {
         for (int i = 0; i < visibleVisionData.Values.Length; i++)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NavMeshAgentManager:MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class NavMeshAgentManager:MonoBehaviour
     private GameObject agentContainer;
 
     public VertexSamplingManager vertexSamplingManager;
-    public AgentProperties agentProperties;
+    public ModularAgentProperties modularAgentProperties;
     [HideInInspector] public TrajectoryVisualizer trajectoryVisualizer;
     
     public AgentEvaluationManager agentEvaluationManager;
@@ -40,7 +41,7 @@ public class NavMeshAgentManager:MonoBehaviour
         {
             name = "NavAgentContainer"
         };
-        sampleFreq = agentProperties.ACTION_REPETITION;
+        sampleFreq = modularAgentProperties.ACTION_REPETITION;
         
         if (agentEvaluationManager)
         {

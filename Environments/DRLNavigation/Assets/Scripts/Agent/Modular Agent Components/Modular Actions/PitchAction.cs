@@ -11,8 +11,8 @@ public class PitchAction:AgentAction
 
     public override void InitializeAgentProperties()
     {
-        rotateSpeed = agentProps.ROTATE_SPEED;
-        minimumRotateThreshold = agentProps.MINIMUM_ROTATE_THRESHOLD;
+        rotateSpeed = ModularAgentProps.ROTATE_SPEED;
+        minimumRotateThreshold = ModularAgentProps.MINIMUM_ROTATE_THRESHOLD;
     }
 
     protected override void InitializeActionTypes()

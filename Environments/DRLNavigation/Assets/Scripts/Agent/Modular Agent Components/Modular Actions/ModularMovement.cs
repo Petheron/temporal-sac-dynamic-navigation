@@ -30,8 +30,6 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
 
     [ReadOnly] public MutatorType currentMutatorType;
     [ReadOnly] public MutatorType newMutatorType;
-    [HideInInspector] public Mutator currentMutator;
-    [HideInInspector] public Mutator newMutator;
     private bool hasStoredMutator;
 
     [Header("Grounded Parameters")] 
@@ -82,12 +80,12 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
         }
     }
 
-    private float AirControl => currentMutator.AirControlModifier * agentProps.MOVE_AIR_CONTROL;
+    private float AirControl => modularAgentProps.MOVE_AIR_CONTROL;
     private float Drag => drag * dragModifier;
 
 
     private EnvironmentParameters envParams;
-    private AgentProperties agentProps;
+    private ModularAgentProperties modularAgentProps;
 
     public event Action OnInitialized;
 
@@ -103,10 +101,10 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
         }
     }
 
-    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
         envParams = environmentParameters;
-        agentProps = agentProperties;
+        modularAgentProps = modularAgentProperties;
         InitializeAgentProperties();
         InitializeEnvironmentParameters();
         InitializeAgentActions();
@@ -121,7 +119,7 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
 
         foreach (var agentAction in actions)
         {
-            agentAction.Initialize(envParams, agentProps);
+            agentAction.Initialize(envParams, modularAgentProps);
             actionTypes.AddRange(agentAction.GetActionTypes());
         }
         
@@ -147,20 +145,20 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
 
     public void InitializeAgentProperties()
     {
-        if (!agentProps) return;
-        defaultGravity = agentProps.GRAVITY_SCALE * Physics.gravity.y;
-        fallingMultiplier = agentProps.GRAVITY_FALL_MULTIPLIER;
-        drag = agentProps.MOVE_DRAG;
-        velocityLimit = agentProps.VELOCITY_LIMIT;
-        actionRepetition = agentProps.ACTION_REPETITION;
+        if (!modularAgentProps) return;
+        defaultGravity = modularAgentProps.GRAVITY_SCALE * Physics.gravity.y;
+        fallingMultiplier = modularAgentProps.GRAVITY_FALL_MULTIPLIER;
+        drag = modularAgentProps.MOVE_DRAG;
+        velocityLimit = modularAgentProps.VELOCITY_LIMIT;
+        actionRepetition = modularAgentProps.ACTION_REPETITION;
 
-        groundCheckMask = agentProps.GROUNDED_MASK;
-        groundCheckOffset = agentProps.GROUNDED_OFFSET;
-        groundCheckRadius = agentProps.GROUNDED_RADIUS;
+        groundCheckMask = modularAgentProps.GROUNDED_MASK;
+        groundCheckOffset = modularAgentProps.GROUNDED_OFFSET;
+        groundCheckRadius = modularAgentProps.GROUNDED_RADIUS;
 
-        vectorNormalizationType = agentProps.VECTOR_NORMALIZATION_TYPE;
-        observedRotationType = agentProps.OBSERVED_ROTATION_TYPE;
-        vectorSpatialOrientationType = agentProps.VECTOR_SPATIAL_ORIENTATION;
+        vectorNormalizationType = modularAgentProps.VECTOR_NORMALIZATION_TYPE;
+        observedRotationType = modularAgentProps.OBSERVED_ROTATION_TYPE;
+        vectorSpatialOrientationType = modularAgentProps.VECTOR_SPATIAL_ORIENTATION;
     }
 
     public void InitializeEnvironmentParameters()
@@ -386,41 +384,14 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
         agentRigidbody.ResetCenterOfMass();
     }
 
-    public void SetMutator(MutatorType newType)
-    {
-        SetMutator(new Mutator(newType));
-    }
 
-    public void SetMutator(Mutator newMutator)
-    {
-        this.newMutator = newMutator;
-        newMutatorType = newMutator.Type;
-        
-        // immediately apply new mutator if not currently affected by a mutator.
-        if (currentMutator == null || currentMutatorType == MutatorType.None)
-        {
-            ApplyNewMutator();
-        }
-    }
-
-    public void ApplyNewMutator()
-    {
-        currentMutator = newMutator;
-        currentMutatorType = newMutatorType;
-        gravityModifier = currentMutator.GravityModifier;
-        dragModifier = currentMutator.DragModifier;
-
-        newMutator = null;
-        newMutatorType = MutatorType.None;
-    }
+    
 
     public void Reset()
     {
         canTakeActions = true;
         gravityEnabled = true;
         rotateTransform = true;
-        
-        SetMutator(MutatorType.None);
 
         foreach (var action in actions)
         {

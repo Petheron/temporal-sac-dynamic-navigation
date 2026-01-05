@@ -156,11 +156,7 @@ MonoBehaviour:
   goalCube: {fileID: 6231651939681829032}
   complexActionPrefabList:
   - {fileID: 534455203010425288, guid: 41f176fbe57c962409744c6f37bdfeee, type: 3}
-  - {fileID: 4131086639590063491, guid: 37d4add5561ff8748aa8acfb64549275, type: 3}
-  - {fileID: 8793845488786887509, guid: bee78940ec1c3244582838ae1c4246d5, type: 3}
-  - {fileID: 3165145402610399187, guid: bcb80e73b2e3e5b4c9e3e3b476ce21fc, type: 3}
   - {fileID: 7474880901720560643, guid: 05517da2f0a10b747b111f586e111d30, type: 3}
-  - {fileID: 4961304475640187029, guid: 4a71591e47e8dea44a2b437991ace773, type: 3}
   - {fileID: 534455203010425288, guid: 79d6922f88b2bf04084fd67168495aea, type: 3}
   agentType: 0
   startIndex: 0

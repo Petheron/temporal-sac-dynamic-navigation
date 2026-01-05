@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DeathField : Dynamic
 {
-    public AgentProperties agentProperties;
+    public EnvironmentProperties environmentProperties;
     private float yOffset;
     private EnvironmentParameters environmentParameters;
 
@@ -40,6 +41,6 @@ public class DeathField : Dynamic
     
     private void GetProperties()
     {
-        yOffset = environmentParameters.GetWithDefault("death_field_y_offset", agentProperties.DEATH_FIELD_Y_OFFSET);
+        yOffset = environmentParameters.GetWithDefault("death_field_y_offset", environmentProperties.DEATH_FIELD_Y_OFFSET);
     }
 }

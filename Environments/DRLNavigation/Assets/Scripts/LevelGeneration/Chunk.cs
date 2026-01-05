@@ -233,7 +233,7 @@ namespace LevelGeneration
             if (!occupancyMap.isMapInitialized) return;
             foreach (var idx in indices)
             {
-                occupancyMap.SubtractDynamicOccupancyIndex(idx,VisionTag.Solid,MutatorType.None);
+                occupancyMap.SubtractDynamicOccupancyIndex(idx,VisionTag.Solid);
             }
 
             
@@ -247,7 +247,7 @@ namespace LevelGeneration
             
             foreach (var idx in indices)
             {
-                occupancyMap.AddNewDynamicOccupancyIndex(idx,VisionTag.Solid,MutatorType.None);
+                occupancyMap.AddNewDynamicOccupancyIndex(idx,VisionTag.Solid);
             }
         }
 
@@ -301,7 +301,6 @@ namespace LevelGeneration
         {
             gameObject.tag = "Solid";
             Generate();
-            // meshCollider.enabled = true;
         }
 
         private void OnDisable()

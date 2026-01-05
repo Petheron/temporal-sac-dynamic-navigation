@@ -16,7 +16,7 @@ public class BaseMovement:MonoBehaviour
     [SerializeField] private bool observeVel = true;
     [SerializeField] private bool observeAccel = true;
 
-    public int numObs = 0;
+    protected int numObs = 0;
     
     [Header("Action Buffer Indices")] 
     [SerializeField] protected int forwardIndex = 0;
@@ -24,8 +24,6 @@ public class BaseMovement:MonoBehaviour
     [SerializeField] protected int yawIndex = 2;
     [SerializeField] protected int pitchIndex = 3;
     [SerializeField] protected int jumpIndex = 4;
-    [SerializeField] protected int sprintIndex = 5;
-    [SerializeField] protected int crouchIndex = 6;
     
     [Header("Player")]
     [Tooltip("Forward Move speed of the character in m/s")]
@@ -78,10 +76,7 @@ public class BaseMovement:MonoBehaviour
 
     [Space(10)] [Header("Observation Normalization Values")]
     public int actionRepeatRate = 1;
-    public float velocityLimit = 100f;
-    
-
-    [ReadOnly] public Vector3 rbVelocity; 
+    [SerializeField] protected float velocityLimit = 100f;
     
     protected Rigidbody agentRigidbody;
     protected Transform agentTransform;
@@ -90,8 +85,10 @@ public class BaseMovement:MonoBehaviour
     protected Vector3 slopedForwardVector;
     private Vector3 oldVelocity;
 
-    public Rigidbody groundRigidbody;
+    [SerializeField] protected Rigidbody groundRigidbody;
     private bool isPlatformVelocityPreserved = false;
+    
+    [SerializeField, ReadOnly] private Vector3 rbVelocity;
     [SerializeField,ReadOnly] private Vector3 cachedGroundVelocity = Vector3.zero;
     [SerializeField,ReadOnly] private Vector3 initialCachedGroundVelocity = Vector3.zero;
 
@@ -157,7 +154,7 @@ public class BaseMovement:MonoBehaviour
         if (cinemachineFollowTargetTransform) cinemachineFollowTargetTransform.localPosition = originalCameraPosition;
     }
 
-    public virtual void SetDefaultMovementProperties(AgentProperties agentProperties)
+    public virtual void SetDefaultMovementProperties(MonolithicAgentProperties agentProperties)
     {
         if (!agentProperties) return;
 
@@ -197,8 +194,6 @@ public class BaseMovement:MonoBehaviour
         {
             pitchIndex = -1;
             jumpIndex -= 1;
-            sprintIndex -= 1;
-            crouchIndex -= 1;
         }
     }
 
@@ -497,11 +492,11 @@ public class BaseMovement:MonoBehaviour
             Acceleration.z/AccelLimit
         };
         // print($"vel: {Velocity}, old_vel: {oldVelocity}, Accel: {Acceleration} ");
-        if(observeVel) obs.AddRange(vel);
-        if(observeAccel) obs.AddRange(accel);
-        obs.Add(IsGrounded?1f:0f);
-        obs.Add(Yaw);
-        obs.Add(Pitch);
+        if(observeVel) obs.AddRange(vel); // 3
+        if(observeAccel) obs.AddRange(accel); // 3
+        obs.Add(IsGrounded?1f:0f); // 1
+        obs.Add(Yaw); // 1
+        obs.Add(Pitch); // 1
         StoreOldVelocity();
         return obs;
     }

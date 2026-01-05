@@ -10,7 +10,7 @@ public class ActionRepeater:ModularDecisionRequesterComponent
     public override void InitializeAgentProperties()
     {
         base.InitializeAgentProperties();
-        decisionPeriod = agentProperties.ACTION_REPETITION;
+        decisionPeriod = modularAgentProperties.ACTION_REPETITION;
     }
 
     public override void InitializeEnvironmentParameters()

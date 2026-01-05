@@ -11,7 +11,6 @@ public class OccupancyMap:MonoBehaviour
 {
     [Header("Grid Settings")] 
     public OccupancyGridProperties occupancyGridProperties;
-
     private OccupancyGridDataType occupancyGridDataType = OccupancyGridDataType.VolumetricGrid;
     private int gridSize;
     private float cellSize;
@@ -235,27 +234,23 @@ public class OccupancyMap:MonoBehaviour
         isMapInitialized = true;
     }
 
-    public void UpdateDynamicOccupancyIndex(int[] oldIdx, int[] newIdx, VisionTag dynamicTag, MutatorType mutatorType)
+    public void UpdateDynamicOccupancyIndex(int[] oldIdx, int[] newIdx, VisionTag dynamicTag)
     {
-        baseGrid?.UpdateDynamicCount(oldIdx, newIdx, ComputeTagValue(dynamicTag, mutatorType));
+        baseGrid?.UpdateDynamicCount(oldIdx, newIdx, ComputeTagValue(dynamicTag));
     }
 
-    public void AddNewDynamicOccupancyIndex(int[] idxs, VisionTag dynamicTag, MutatorType mutatorType)
+    public void AddNewDynamicOccupancyIndex(int[] idxs, VisionTag dynamicTag)
     {
-        baseGrid?.AddNewDynamicCount(idxs,ComputeTagValue(dynamicTag, mutatorType));
+        baseGrid?.AddNewDynamicCount(idxs,ComputeTagValue(dynamicTag));
     }
     
-    public void SubtractDynamicOccupancyIndex(int[] idxs, VisionTag dynamicTag, MutatorType mutatorType)
+    public void SubtractDynamicOccupancyIndex(int[] idxs, VisionTag dynamicTag)
     {
-        baseGrid?.SubtractDespawningDynamicCount(idxs,ComputeTagValue(dynamicTag, mutatorType));
+        baseGrid?.SubtractDespawningDynamicCount(idxs,ComputeTagValue(dynamicTag));
     }
 
-    private int ComputeTagValue(VisionTag dynamicTag, MutatorType mutatorType)
+    private int ComputeTagValue(VisionTag dynamicTag)
     {
-        if (mutatorType != MutatorType.None)
-        {
-            return visibleTags.GetValue(mutatorType, useTagIndicesForVoxelValue);
-        }
         return visibleTags.GetValue(dynamicTag, useTagIndicesForVoxelValue);
     }
 

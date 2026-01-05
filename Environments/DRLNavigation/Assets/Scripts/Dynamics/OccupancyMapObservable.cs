@@ -5,7 +5,6 @@ using UnityEngine;
 public class OccupancyMapObservable : MonoBehaviour
 {
     public VisionTag visionTag = VisionTag.Solid;
-    public MutatorComponent mutatorComponent;
     protected Vector3 defaultPosition;
     protected Quaternion defaultRotation;
     [SerializeField, ReadOnly] protected Vector3 currentPosition = Vector3.zero;
@@ -20,8 +19,6 @@ public class OccupancyMapObservable : MonoBehaviour
     public bool showDebug;
     [SerializeField]protected List<int> debugOccupancyIndicesCount;
     protected List<int> debugOccupancyIndex;
-
-    protected MutatorType ObservableMutatorType => mutatorComponent ? mutatorComponent.mutatorType : MutatorType.None;
 
     protected virtual void Awake()
     {
@@ -91,7 +88,7 @@ public class OccupancyMapObservable : MonoBehaviour
         int[] idx = occupancyMap?.GetAllIndicesFromGlobalPosition(position);
         occupancyIndices.Add(idx);
                         
-        AddOccupancyIndices(idx, visionTag, ObservableMutatorType);
+        AddOccupancyIndices(idx, visionTag);
                         
         debugOccupancyIndicesCount.Add(occupancyMap.GetTotalCountFromGlobalPosition(position,0));
         debugOccupancyIndex.Add(idx[0]);
@@ -112,7 +109,7 @@ public class OccupancyMapObservable : MonoBehaviour
             int[] oldIdx = occupancyIndices[i];
             int[] newIdx = occupancyMap.GetAllIndicesFromGlobalPosition(currentPosition + occupancyNodeOffsets[i]);
             
-            occupancyMap.UpdateDynamicOccupancyIndex(oldIdx, newIdx, visionTag, ObservableMutatorType);
+            occupancyMap.UpdateDynamicOccupancyIndex(oldIdx, newIdx, visionTag);
             occupancyIndices[i] = newIdx;
 
             debugOccupancyIndex[i] = newIdx[0];
@@ -120,14 +117,14 @@ public class OccupancyMapObservable : MonoBehaviour
         }
     }
     
-    protected void AddOccupancyIndices(int[] indices, VisionTag dynamicTag, MutatorType mutatorType)
+    protected void AddOccupancyIndices(int[] indices, VisionTag dynamicTag)
     {
-        occupancyMap.AddNewDynamicOccupancyIndex(indices, dynamicTag, mutatorType);
+        occupancyMap.AddNewDynamicOccupancyIndex(indices, dynamicTag);
     }
     
-    protected void SubtractOccupancyIndices(int[] indices, VisionTag dynamicTag, MutatorType mutatorType)
+    protected void SubtractOccupancyIndices(int[] indices, VisionTag dynamicTag)
     {
-        occupancyMap.SubtractDynamicOccupancyIndex(indices, dynamicTag, mutatorType);
+        occupancyMap.SubtractDynamicOccupancyIndex(indices, dynamicTag);
     }
 
     protected void AddAllOccupancyNodes()
@@ -137,7 +134,7 @@ public class OccupancyMapObservable : MonoBehaviour
         
         foreach (var indices in occupancyIndices)
         {
-            AddOccupancyIndices(indices, visionTag, ObservableMutatorType);
+            AddOccupancyIndices(indices, visionTag);
         }
     }
 
@@ -148,13 +145,13 @@ public class OccupancyMapObservable : MonoBehaviour
         
         foreach (var indices in occupancyIndices)
         {
-            SubtractOccupancyIndices(indices, visionTag, ObservableMutatorType);
+            SubtractOccupancyIndices(indices, visionTag);
         }
     }
 
     public virtual void Reset()
     {
-        VisibleTags.AssignTag(gameObject, visionTag, ObservableMutatorType);
+        VisibleTags.AssignTag(gameObject, visionTag);
         transform.SetPositionAndRotation(defaultPosition,defaultRotation);
         if (rb)
         {

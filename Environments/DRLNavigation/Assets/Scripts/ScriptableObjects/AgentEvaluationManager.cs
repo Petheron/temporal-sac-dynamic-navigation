@@ -18,10 +18,10 @@ public class AgentEvaluationManager : ScriptableObject
     public event Action OnResultsSaved;
     public event Action OnTrajectoryReset;
 
-    public void Initialize(List<AgentType> types, int numAgentsPerType)
+    public void Initialize(List<AgentType> types, int numberAgentsPerType)
     {
         agentTypes = types;
-        this.numAgentsPerType = numAgentsPerType;
+        numAgentsPerType = numberAgentsPerType;
         remainingEvaluations = new Dictionary<AgentType, Dictionary<int, Queue<Tuple<int, int>>>>();
         
         if (vertexSamplingManager)

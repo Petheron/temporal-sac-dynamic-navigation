@@ -5,13 +5,11 @@
     Yaw,
     Pitch,
     Jump,
-    Sprint,
-    Crouch,
-    Grapple,
     Dash,
     Leap,
     Booster,
     Teleport,
-    WallClimb,
-    WallRun
+    Sprint,
+    Crouch,
+    Grapple,
 }

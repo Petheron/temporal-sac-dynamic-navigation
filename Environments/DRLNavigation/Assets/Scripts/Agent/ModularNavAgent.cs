@@ -23,7 +23,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
     [SerializeField] private Transform goalTransform;
     
     [Header("Scriptable Objects")]
-    [SerializeField] private AgentProperties agentProp;
+    [SerializeField] private ModularAgentProperties modularAgentProperties;
     [SerializeField] private VertexSamplingManager vertexSamplingManager;
     public AgentEvaluationManager agentEvaluationManager;
     
@@ -110,10 +110,10 @@ public class ModularNavAgent : Agent, IModularAgentComponent
 
     // Action Events
     public event Action OnReset;
-    public event Action<EnvironmentParameters, AgentProperties> OnAgentPreInitialize;
+    public event Action<EnvironmentParameters, ModularAgentProperties> OnAgentPreInitialize;
     public event Action OnAgentPostInitialize;
 
-    [SerializeField] private bool isInitialized;
+    [SerializeField, ReadOnly] private bool isInitialized;
 
     // Called on class construction (always)
     private void Awake()
@@ -136,7 +136,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
         depthmapSensorManager = GetComponent<DepthmapSensorManager>();
         
         SubscribeToEvents();
-        OnAgentPreInitialize?.Invoke(envParams,agentProp);
+        OnAgentPreInitialize?.Invoke(envParams,modularAgentProperties);
         InitializeAgentComponents();
     }
 
@@ -149,7 +149,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
         OnAgentPostInitialize?.Invoke();
     }
 
-    public void Initialize(EnvironmentParameters environmentParameters, AgentProperties agentProperties)
+    public void Initialize(EnvironmentParameters environmentParameters, ModularAgentProperties modularAgentProperties)
     {
         InitializeAgentProperties();
         InitializeEnvironmentParameters();
@@ -258,20 +258,20 @@ public class ModularNavAgent : Agent, IModularAgentComponent
 
     public void InitializeAgentProperties()
     {
-        stepLimit = agentProp.DEFAULT_STEP_LIMIT;
-        epsilonDistance = agentProp.EPSILON_DISTANCE;
-        normalizationDistance = agentProp.NORMALIZATION_DISTANCE;
-        maxGoalDistance = agentProp.MAX_GOAL_DISTANCE;
-        useEdgeGoal = agentProp.SAMPLE_GOAL_VERTEX_FROM_START_VERTEX;
+        stepLimit = modularAgentProperties.DEFAULT_STEP_LIMIT;
+        epsilonDistance = modularAgentProperties.EPSILON_DISTANCE;
+        normalizationDistance = modularAgentProperties.NORMALIZATION_DISTANCE;
+        maxGoalDistance = modularAgentProperties.MAX_GOAL_DISTANCE;
+        useEdgeGoal = modularAgentProperties.SAMPLE_GOAL_VERTEX_FROM_START_VERTEX;
 
-        vectorNormalizationType = agentProp.VECTOR_NORMALIZATION_TYPE;
-        vectorSpatialOrientationType = agentProp.VECTOR_SPATIAL_ORIENTATION;
+        vectorNormalizationType = modularAgentProperties.VECTOR_NORMALIZATION_TYPE;
+        vectorSpatialOrientationType = modularAgentProperties.VECTOR_SPATIAL_ORIENTATION;
     }
     
     public void InitializeEnvironmentParameters()
     {
         stepLimit = (int)envParams.GetWithDefault("step_limit", stepLimit);
-        normalizationDistance = envParams.GetWithDefault("normalizing_distance", agentProp.NORMALIZATION_DISTANCE);
+        normalizationDistance = envParams.GetWithDefault("normalizing_distance", modularAgentProperties.NORMALIZATION_DISTANCE);
         maxGoalDistance = envParams.GetWithDefault("max_goal_distance", maxGoalDistance);
         useEdgeGoal = envParams.GetWithDefault("use_edge_goal", useEdgeGoal ? 1.0f : 0f) > 0f;
         
@@ -353,7 +353,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
     private void InitializeSensors()
     {
         
-        SensorManagerProperties properties = new SensorManagerProperties(agentProp.OBS_STACKS, CalculateVectorSensorObservationSize());
+        SensorManagerProperties properties = new SensorManagerProperties(modularAgentProperties.OBS_STACKS, CalculateVectorSensorObservationSize());
 
         if(vectorSensorManager)vectorSensorManager.Initialize(properties);
 
@@ -399,13 +399,13 @@ public class ModularNavAgent : Agent, IModularAgentComponent
         }
         
         // If not evaluating, either select at random or from a given starting index
-        startVertex = agentProp.IS_AGENT_POSITION_RANDOM
+        startVertex = modularAgentProperties.IS_AGENT_POSITION_RANDOM
             ? vertexSamplingManager.SampleVertex(maxGoalDistance, Vector3.positiveInfinity)
             : vertexSamplingManager.GetVertex(0);
         
         goalVertex = useEdgeGoal? 
             vertexSamplingManager.SampleEdgeVertex(startVertex) :
-            vertexSamplingManager.SampleVertex(maxGoalDistance, startVertex?startVertex.GetPosition():Vector3.zero, agentProp.EPSILON_DISTANCE);
+            vertexSamplingManager.SampleVertex(maxGoalDistance, startVertex?startVertex.GetPosition():Vector3.zero, modularAgentProperties.EPSILON_DISTANCE);
 
         // Notify if vertices are null (should only occur during forced environment reset from python code, which immediately is replaced by a reset after the graph completes)
         // if (!startVertex || !goalVertex)
@@ -420,7 +420,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
     private void SetPositionsAndRotation()
     {
         if(startVertex) agentStartPosition = startVertex.GetPosition();
-        agentStartRotation = agentProp.IS_AGENT_ROTATION_RANDOM
+        agentStartRotation = modularAgentProperties.IS_AGENT_ROTATION_RANDOM
             ? Quaternion.Euler(0f, Random.Range(0f, 360f), 0f)
             : Quaternion.identity;
 
@@ -488,11 +488,15 @@ public class ModularNavAgent : Agent, IModularAgentComponent
 
     public void AllowEnable()
     {
-        if(enabled) enabled = false;
         allowEnable = true;
+        
+        // Toggle enabled state of gameobject to force OnEnable() to be called.
+        if(enabled) enabled = false;
         enabled = true;
+        
         if (actionRepeater)
         {
+            // Toggle actionrepeater enabled state to force OnEnable() to be called.
             if(actionRepeater.enabled) actionRepeater.enabled = false;
             actionRepeater.enabled = true;
         }
@@ -507,7 +511,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
     protected override void OnDisable()
     {
         if(!allowEnable) return;
-        if(cameraController) cameraController.RemoveCamera(visionCam);
+        RemoveCamera();
         UnsubscribeToEvents();
         base.OnDisable();
     }
