@@ -51,6 +51,10 @@ public class EuclideanReward:MonoBehaviour, IModularAgentComponent
     private float CalculateEuclideanDistanceReward(float distance)
     {
         var dist = distance;
+        if (Mathf.Abs(initialEuclideanDistance)<Mathf.Epsilon || initialEuclideanDistance==Mathf.Infinity)
+        {
+            return 0.0f;
+        }
         if (normalizeEucDistance)
         {
             dist /= initialEuclideanDistance;

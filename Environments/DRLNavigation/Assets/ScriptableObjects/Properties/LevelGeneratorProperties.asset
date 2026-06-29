@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a9d037d7c74ecb9d3ddeaeaa2a98a8, type: 3}
   m_Name: LevelGeneratorProperties
   m_EditorClassIdentifier: 
-  LEVEL_GENERATION_DELAY: 0
+  LEVEL_GENERATION_DELAY: 1000
   LEVEL_GENERATION_SIZE: 31
   LEVEL_GENERATION_HEIGHT: 10
   USE_CONSTANT_LEVEL_GENERATION_HEIGHT: 0

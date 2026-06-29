@@ -21,7 +21,7 @@ MonoBehaviour:
   colliderMask:
     serializedVersion: 2
     m_Bits: 1
-  visionTags: 3
+  visionTags: 1
   visibleMutatorTypes: 0
   rotateSampleWithAgent: 0
   maxRotatorSampleSize: 30

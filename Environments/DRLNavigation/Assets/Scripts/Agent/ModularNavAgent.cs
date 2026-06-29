@@ -333,7 +333,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
         statsRecorder.Add("euclidean_fail_rate", endCondition==EndCondition.EucFail?1f:0f);
         statsRecorder.Add("timeout_fail_rate",endCondition==EndCondition.Timeout?1f:0f);
 
-        behaviorParameters.BehaviorType = BehaviorType.InferenceOnly;
+        //behaviorParameters.BehaviorType = BehaviorType.InferenceOnly;
     }
     
     private int CalculateVectorSensorObservationSize()
@@ -489,10 +489,7 @@ public class ModularNavAgent : Agent, IModularAgentComponent
     public void AllowEnable()
     {
         allowEnable = true;
-        
-        // Toggle enabled state of gameobject to force OnEnable() to be called.
-        if(enabled) enabled = false;
-        enabled = true;
+        OnEnable();
         
         if (actionRepeater)
         {

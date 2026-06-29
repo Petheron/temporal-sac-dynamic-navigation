@@ -46,7 +46,7 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
     [HideInInspector] public float gravityModifier = 1f;
     public float fallingMultiplier = 1.5f;
     [SerializeField] private float drag;
-    [HideInInspector] public float dragModifier;
+    [ReadOnly] public float dragModifier = 1.0f;
 
     [HideInInspector] public int actionRepetition=1;
     private Vector3 oldVelocity;
@@ -149,6 +149,7 @@ public class ModularMovement : MonoBehaviour, IModularAgentComponent
         defaultGravity = modularAgentProps.GRAVITY_SCALE * Physics.gravity.y;
         fallingMultiplier = modularAgentProps.GRAVITY_FALL_MULTIPLIER;
         drag = modularAgentProps.MOVE_DRAG;
+        dragModifier = 1.0f;
         velocityLimit = modularAgentProps.VELOCITY_LIMIT;
         actionRepetition = modularAgentProps.ACTION_REPETITION;
 

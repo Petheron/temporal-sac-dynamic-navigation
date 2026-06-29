@@ -8,7 +8,8 @@ using Unity.MLAgents.Policies;
 public enum SpawnerMode
 {
     Training,
-    Evaluating
+    Evaluating,
+    Heuristic
 }
 
 public class AgentSpawner : MonoBehaviour
@@ -161,6 +162,11 @@ public class AgentSpawner : MonoBehaviour
                     behaviorParams.Model = model;
                     behaviorParams.InferenceDevice = InferenceDevice.GPU;
                     behaviorParams.BehaviorType = BehaviorType.InferenceOnly;
+                }
+                else if(spawnerMode == SpawnerMode.Heuristic)
+                {
+                    var behaviorParams = agentGameObject.GetComponentInChildren<BehaviorParameters>();
+                    behaviorParams.BehaviorType = BehaviorType.HeuristicOnly;
                 }
             }
             // if(mainCam) mainCam.orthographicSize = halfWidth;

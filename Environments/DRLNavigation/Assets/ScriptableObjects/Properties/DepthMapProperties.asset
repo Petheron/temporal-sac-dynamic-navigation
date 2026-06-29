@@ -20,6 +20,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1
-  numChannels: 2
+  numChannels: 1
   visionTags: 1
   visibleMutatorTypes: 0
