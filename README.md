@@ -8,7 +8,7 @@ See installation and run procedures below.
 * Install Anaconda/Miniconda.
 * Create a conda environment: ```conda create --name drl_nav python=3.8.10```
 * Install dependencies in mlagents.yaml via anaconda import.
-* Install remaining dependencies using ```pip install -r Requirements.txt```
+* Install remaining dependencies in the conda environment using ```pip install -r requirements.txt```
 * Install pytorch 1.8.2 for Cuda 11.1 using ```pip install torch==1.8.2+cu111 torchvision==0.9.2+cu111 torchaudio==0.8.2 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html```
 
 ### Unity
