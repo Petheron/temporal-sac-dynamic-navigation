@@ -82,8 +82,8 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.timeline": "1.7.1",
-        "com.autodesk.fbx": "4.2.1"
+        "com.autodesk.fbx": "4.2.1",
+        "com.unity.timeline": "1.7.1"
       },
       "url": "https://packages.unity.com"
     },
@@ -138,7 +138,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "git+https://github.com/DaleTGrant/DRL_Algorithms.git?path=Packages/com.unity.ml-agents#master",
+      "version": "git+https://code.research.uts.edu.au/DaleTGrant/drl-for-complex-dynamic-navigation.git?path=Packages/com.unity.ml-agents#master",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -146,17 +146,17 @@
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "hash": "d133c22b2a47b1c7962d79950fce1425c252d3a5"
+      "hash": "48cf429dffe58c2486cfa8a7df558e46de62d5c8"
     },
     "com.unity.ml-agents.extensions": {
-      "version": "git+https://github.com/DaleTGrant/DRL_Algorithms.git?path=com.unity.ml-agents.extensions#master",
+      "version": "git+https://code.research.uts.edu.au/DaleTGrant/drl-for-complex-dynamic-navigation.git?path=com.unity.ml-agents.extensions#master",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.ml-agents": "2.1.0-exp.1",
         "com.unity.modules.physics": "1.0.0"
       },
-      "hash": "d133c22b2a47b1c7962d79950fce1425c252d3a5"
+      "hash": "48cf429dffe58c2486cfa8a7df558e46de62d5c8"
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.1.0",
@@ -179,9 +179,9 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.settings-manager": "1.0.3",
+        "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0"
+        "com.unity.settings-manager": "1.0.3"
       },
       "url": "https://packages.unity.com"
     },
@@ -290,9 +290,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"

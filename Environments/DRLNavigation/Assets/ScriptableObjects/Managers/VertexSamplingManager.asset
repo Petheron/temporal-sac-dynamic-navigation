@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c613d003bd6d4ea3ad03853856ea25c5, type: 3}
   m_Name: VertexSamplingManager
   m_EditorClassIdentifier: 
-  samplingType: 0
+  samplingType: 2
   alwaysIncludeManualNodes: 1
   gridDim: {x: 201, y: 201}
   samplingHalfHeight: 100

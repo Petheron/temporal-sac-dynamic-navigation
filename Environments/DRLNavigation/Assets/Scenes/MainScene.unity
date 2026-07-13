@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3805109253097046700, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: spawnerMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3805109253097046700, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: agentTypesToSpawn.Array.data[1]
