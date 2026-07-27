@@ -743,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1490
+      value: 1493
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -1246,7 +1246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1197
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -1680,7 +1680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1487
+      value: 1490
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -2245,7 +2245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1200
+      value: 1203
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -2679,7 +2679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1499
+      value: 1502
       objectReference: {fileID: 0}
     - target: {fileID: 9012551804699355675, guid: 29a02d1f836a03147a9be6de1813662c, type: 3}
       propertyPath: m_Positions.Array.data[0].x
