@@ -70,10 +70,10 @@ def canonical(cell, batch):
     return f"{cell}_b{batch}" if batch else cell
 
 
-# ===== THE COMPARISONS CHAPTER 3 AND APPENDIX D REPORT =====
+# ===== THE COMPARISONS CHAPTER 3 AND APPENDIX c REPORT =====
 
 # Each entry is (family, label, left cell, right cell, metric, published p, published difference in pp)
-# The published values are transcribed from Appendix D and are what the recomputation is checked against
+# The published values are transcribed from Appendix c and are what the recomputation is checked against
 COMPARISONS = [
     ("architecture", "Stack-4 vs LSTM (3.0 s)",        "bl_h_t030", "ls_h_t030", "success", 0.0079, +12.3),
     ("architecture", "Stack-4 vs Transformer (3.0 s)", "bl_h_t030", "tf_h_t030", "success", 0.0079, +21.4),
@@ -99,7 +99,7 @@ COMPARISONS = [
 
 # The 5 test families declared in Section 3.1 before any result was reported
 # A family's declared size is what Benjamini-Hochberg divides by, and it exceeds the
-# number of comparisons tabulated in Appendix D, so the correction is reported here
+# number of comparisons tabulated in Appendix C, so the correction is reported here
 # against the comparisons this script holds rather than against the full declared family
 DECLARED_FAMILY_SIZE = {
     "stack": 8,

@@ -84,7 +84,7 @@ Both figure scripts share one palette, mirrored by the colour definitions at the
 python Algorithms\analyse_statistics.py --results Metrics
 ```
 
-That reproduces all eighteen comparisons in the Appendix D contrast table from the metric series alone, with no stored intermediate. Each row carries the recomputed difference, the published difference, the exact two-tailed Mann-Whitney U p-value, the published p-value, the smallest p-value the design can produce, and Hedges' g. A row whose recomputation disagrees with the published value is marked.
+That reproduces all eighteen comparisons in the Appendix C contrast table from the metric series alone, with no stored intermediate. Each row carries the recomputed difference, the published difference, the exact two-tailed Mann-Whitney U p-value, the published p-value, the smallest p-value the design can produce, and Hedges' g. A row whose recomputation disagrees with the published value is marked.
 
 Exact enumeration is used rather than the normal approximation, since at five seeds against five there are only 252 rank arrangements. Ties are half-weighted, which is standard for Mann-Whitney and is why a tied comparison recomputed with SciPy will not always agree.
 
@@ -123,4 +123,4 @@ Every job writes a marker recording the configuration it loaded, the configurati
 
 ## The thesis
 
-The thesis source is held separately. Appendix A gives the complete configuration listing, Appendix B separates what was inherited from what was built in more detail than this file does, and Appendix D holds the supplementary per-seed statistics.
+The thesis source is held separately. Appendix A gives the complete configuration listing, Appendix B separates what was inherited from what was built in more detail than this file does, and Appendix C holds the supplementary per-seed statistics.
