@@ -1,6 +1,7 @@
 import torch
 import os
 
+
 from Utils import plot_from_file, load_data, plot_trajectory_positions
 from config_loader import load_yaml, get_behavior_settings, get_network_settings, get_hyperparameters, get_max_steps, get_trainer_type, get_reward_signals, get_environment_parameters
 import shutil
@@ -57,6 +58,14 @@ def main():
     crit_lr = learning_rate
     max_steps = environment_parameters.get('max_steps', 1000)
     environment_parameters["env_id"] = args.env_id
+
+    print("-" * 72, flush=True)
+    print(f"[RunPolicy] Config File           : {config_yaml}", flush=True)
+    print(f"[RunPolicy] env_params Keys        : {sorted(environment_parameters.keys())}", flush=True)
+    print(f"[RunPolicy] temporal_architecture  : "
+          f"{environment_parameters.get('temporal_architecture', '<ABSENT>')!r}", flush=True)
+    print(f"[RunPolicy] environment_parameters : {environment_parameters}", flush=True)
+    print("-" * 72, flush=True)
 
     # Neural Network Parameters
     hidden_size = int(network_params.get('hidden_units', 512))
@@ -144,6 +153,7 @@ def main():
     if args.run > 0:
         if os.path.isfile(config_yaml):
             shutil.copy(config_yaml, new_run_results_dir)
+        print(f"[RunPolicy] launching: {cmd}", flush=True)
         os.system(cmd)
 
     # optional plotting argument. Use to refresh plots.

@@ -1,6 +1,7 @@
 ﻿using System;
 using Unity.AI.Navigation;
 using UnityEngine;
+using Unity.MLAgents;
 
 public class MovingPlatform : Dynamic
 {
@@ -15,11 +16,20 @@ public class MovingPlatform : Dynamic
     public bool preventSpawnPlacement = true;
     private NavMeshModifierVolume navMeshModifierVolume;
     
+    private EnvironmentParameters environmentParameters;
+
+    // Whether each episode starts the platform at a random point in its cycle.
+    private bool randomisePhase;
+    
+    private static bool hasLoggedPlatformTiming;
+    
     private Vector3 StartPosition => useInitialPositionAsStartPosition? defaultPosition: defaultPosition-displacementVector/2f;
     private Vector3 EndPosition => useInitialPositionAsStartPosition? defaultPosition+displacementVector: defaultPosition+displacementVector/2f;
 
     protected override void Awake()
     {
+        InitializeEnvironmentParameters();
+
         navMeshModifierVolume = GetComponent<NavMeshModifierVolume>();
         if (navMeshModifierVolume && preventSpawnPlacement)
         {
@@ -28,7 +38,28 @@ public class MovingPlatform : Dynamic
             navMeshModifierVolume.enabled = preventSpawnPlacement;
         }
         base.Awake();
+
+    }
+
+    private void InitializeEnvironmentParameters()
+    {
+        environmentParameters = Academy.Instance.EnvironmentParameters;
+
+        // Defaults to inspector value.
+        travelTime = environmentParameters.GetWithDefault("platform_travel_time", travelTime);
+
+        // Phase randomisation stays off unless a config asks for it.
+        randomisePhase = environmentParameters.GetWithDefault("randomise_platform_phase", 0f) > 0f;
+
+        if (hasLoggedPlatformTiming) return;
+        hasLoggedPlatformTiming = true;
         
+        // Logged once so the traverse timing is recorded in the run log.
+        int physicsStepsPerTraverse = Mathf.RoundToInt(travelTime / Time.fixedDeltaTime);
+        Debug.Log($"[PLATFORM] travelTime={travelTime:F3} s " +
+                  $"fixedDeltaTime={Time.fixedDeltaTime:F4} s " +
+                  $"physicsStepsPerTraverse={physicsStepsPerTraverse} " +
+                  $"randomisePhase={randomisePhase}");
     }
 
     protected override void PerformContinuousDynamics()
@@ -60,7 +91,11 @@ public class MovingPlatform : Dynamic
     public override void Reset()
     {
         base.Reset();
-        timer = 0f;
+        
+        timer = randomisePhase ? UnityEngine.Random.Range(0f, travelTime) : 0f;
+
+        // PerformContinuousDynamics only clears reverse when the timer is exactly zero; a randomised start never reaches that branch, so the direction is set explicitly here.
+        reverse = randomisePhase && UnityEngine.Random.value < 0.5f;
     }
 
     protected override void OnDrawGizmosSelected()

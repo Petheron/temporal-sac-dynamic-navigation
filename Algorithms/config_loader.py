@@ -1,9 +1,21 @@
 import yaml
 
+class _UniqueKeyLoader(yaml.SafeLoader):
+    def construct_mapping(self, node, deep=False):
+        seen = set()
+        for key_node, _ in node.value:
+            key = self.construct_object(key_node, deep=deep)
+            if key in seen:
+                raise yaml.YAMLError(
+                    f"Duplicate Key {key!r} at Line {key_node.start_mark.line + 1}. "
+                    f"PyYAML Would Silently Discard the Earlier Block."
+                )
+            seen.add(key)
+        return super().construct_mapping(node, deep)
 
 def load_yaml(file_name):
     with open(f'./{file_name}') as file:
-        config = yaml.safe_load(file)
+        config = yaml.load(file, Loader=_UniqueKeyLoader)
     return config
 
 

@@ -761,7 +761,7 @@ MonoBehaviour:
   cameraFollowTransform: {fileID: 4152088113413296238}
   playerActionsManager: {fileID: 5359862059734083804}
   grounding: {fileID: 1845256875859801789}
-  actionBitMask: 110100
+  actionBitMask: 1110000
   actions:
   - {fileID: 7344523068397902044}
   - {fileID: 8475681099446503094}

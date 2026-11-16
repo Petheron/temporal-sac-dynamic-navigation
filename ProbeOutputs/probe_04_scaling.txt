@@ -1,0 +1,50 @@
+====================================================================================
+PROBE 04  MAGNITUDE AGAINST STRUCTURE
+====================================================================================
+file   D:\Projects\temporal-sac-dynamic-navigation\Results\runs\tf_h_w10_t10.0s_s3\SAC_DRLNavigation\actor_dict_0
+torch  1.8.1+cu111
+seed   20261106
+
+transformer loaded cleanly, d_model 256, 2 layers
+
+====================================================================================
+PART 1  WHERE THE LARGE ACTIVATION IS PRODUCED
+====================================================================================
+  stage                         input RMS     output RMS     gain   weight norm
+  conv3d branch, convolutions      0.3854         0.2386    0.619          4.26
+  conv3d branch, dense             0.2386         4.6723   19.582        119.14
+  conv2d branch, convolutions      0.5833         0.1149    0.197          3.62
+  conv2d branch, dense             0.1149         0.3140    2.733         74.82
+  vector branch                    0.9851         0.9851    1.000          none
+  concatenated                                    3.2865                   none
+  trunk 0, Linear                  3.2865        40.5432   12.336        104.83
+  trunk 1, SiLU                   40.5432        26.8110    0.661          none
+  trunk 2, Linear                 26.8110       281.6257   10.504         78.87
+  trunk 3, SiLU                  281.6257       256.5239    0.911          none
+
+  trunk output, which is the transformer input, sits at RMS 256.5239
+
+====================================================================================
+PART 2  THE SCALING PREDICTION, TESTED
+====================================================================================
+
+  input RMS      share L0   share L1    product L0   context   history ratio   untrained ratio
+  0.01          236.1820    95.2934        2.362      3.81          3.9152            1.4271
+  0.1           173.2899    98.1330       17.329      4.42          0.3278            0.2731
+  1              20.6312    38.2661       20.631      4.13          0.5209            0.0520
+  10              2.2633     3.1396       22.633      3.60          0.3988            0.0397
+  100             0.2246     0.3370       22.460      3.69          0.3937            0.0449
+  1000            0.0222     0.0317       22.216      3.90          0.3468            0.0126
+  10000           0.0023     0.0034       22.673      3.77          0.0566            0.0007
+  260.9           0.0056     0.0049        1.459      8.61          0.0000            0.0070   <-- real encoder output
+
+====================================================================================
+PART 3  MAGNITUDE AGAINST STRUCTURE, VARIED 1 AT A TIME
+====================================================================================
+  structure              magnitude     actual RMS   share L0   context   history ratio
+  real encoder output    measured          260.9     0.0056      8.61          0.0000
+  real encoder output    1                     1     1.4808      5.78          0.7249
+  Gaussian noise         measured            261     0.0878      3.76          0.4615
+  Gaussian noise         1                     1    24.0465      3.73          0.4487
+
+====================================================================================

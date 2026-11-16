@@ -1,0 +1,4 @@
+job_name=tf_hz_s0
+job_id=112049.hpc-head01
+config=sac_transformer_moving_platform_horizontal_seed0.yaml
+completed=2026-10-08T08:15:03Z

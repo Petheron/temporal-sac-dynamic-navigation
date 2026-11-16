@@ -167,7 +167,10 @@ class ONNX_Actor(nn.Module):
         log_std = self.log_std(encoding)
         log_std = torch.clamp(log_std, self.LOG_STD_MIN, self.LOG_STD_MAX)
         action = mean + (1.0 - self.is_deterministic) * torch.randn_like(mean) * torch.exp(log_std)
-        action = torch.tanh(action).reshape((-1, 1))
+        # action = torch.tanh(action).reshape((-1, 1))
+        action = torch.tanh(action)
+        if action.dim() == 3:
+            action = action.squeeze(1)
 
         export_output += [action, self.continuous_action_size]
 
@@ -491,7 +494,7 @@ class SAC_LSTM(object):
         else:
             actor_memories_in, critic_memories_in_1, critic_memories_in_2 = memories_in, memories_in, None
 
-        new_action, new_log_prob, _ = self.actor.sample(obs, memories_in=memories_in, sequence_length=sequence_length)
+        new_action, new_log_prob, _ = self.actor.sample(obs, memories_in=actor_memories_in, sequence_length=sequence_length)
         actor_loss_value, entropy_value, log_alpha_loss_value = None, None, None
 
         if self.total_it % self.policy_freq == 0:

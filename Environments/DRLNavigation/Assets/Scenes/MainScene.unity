@@ -204,9 +204,9 @@ PrefabInstance:
       value: Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 3805109253097046700, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
-      propertyPath: spawnerMode
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: agentModelArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 7a6a1f49d6445f74cb098171ba3c0b88, type: 3}
     - target: {fileID: 3805109253097046700, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: agentTypesToSpawn.Array.data[1]
       value: 2
@@ -266,10 +266,6 @@ PrefabInstance:
     - target: {fileID: 3805109253097046702, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: levelType
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3805109253097046702, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
-      propertyPath: useLevelSequence
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3805109253097046702, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: LevelArray.Array.size
@@ -382,10 +378,6 @@ PrefabInstance:
     - target: {fileID: 3805109253097046702, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: levelSequence.Array.data[2]
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879081725140570074, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
-      propertyPath: showGizmos
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3879081725140570074, guid: 7bfea5c6c9a52c14e8feef4de1e9c423, type: 3}
       propertyPath: permanentlyShowGizmos

@@ -1,0 +1,1470 @@
+(drl_nav_hpc) D:\Projects\temporal-sac-dynamic-navigation>python Algorithms\probe_05_summary.py "C:\Users\Adam_\Downloads\HPC_Download_24th_October" "C:\Users\Adam_\Downloads\HPC_Download_19th_October" "Results\SortMe" "C:\Users\Adam_\Downloads\HPC_Download_8th_October\VOID_tf_dw_s0_103262" "C:\Users\Adam_\Downloads\HPC_Download_8th_October\VOID_tf_dw_s1_103264" "C:\Users\Adam_\Downloads\HPC_Download_16th_October" "C:\Users\Adam_\Downloads\HPC_Download_3rd_November_2"
+====================================================================================================
+PROBE 05  ALL ARCHITECTURES, ALL SUPPLIED CHECKPOINTS
+====================================================================================================
+torch  1.8.1+cu111
+seed   20261106
+
+found 93 checkpoint(s)
+
+----------------------------------------------------------------------------------------------------
+[1 of 93]  bl_h_t080_s0_185822
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.2997
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8232 relative, ratio 0.9585
+  history dependence, untrained  1.1613 relative, ratio 1.6968
+  trained over untrained         0.56
+  per frame sensitivity          0.5824 0.5485 0.6061 0.8589
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[2 of 93]  bl_h_t080_s1_185823
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3519
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8288 relative, ratio 1.1545
+  history dependence, untrained  1.1617 relative, ratio 1.6880
+  trained over untrained         0.68
+  per frame sensitivity          0.5600 0.5293 0.5565 0.7179
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[3 of 93]  bl_h_t080_s2_189397
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3358
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8988 relative, ratio 1.0633
+  history dependence, untrained  1.1773 relative, ratio 1.6857
+  trained over untrained         0.63
+  per frame sensitivity          0.6075 0.6176 0.6507 0.8453
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[4 of 93]  bl_h_t090_s0_189398
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.4581
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6339 relative, ratio 1.0356
+  history dependence, untrained  1.1641 relative, ratio 1.6965
+  trained over untrained         0.61
+  per frame sensitivity          0.4375 0.4283 0.4337 0.6121
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[5 of 93]  bl_h_t090_s1_189399
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3302
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8649 relative, ratio 1.0231
+  history dependence, untrained  1.1547 relative, ratio 1.6886
+  trained over untrained         0.61
+  per frame sensitivity          0.6257 0.5752 0.5665 0.8454
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[6 of 93]  bl_h_t090_s2_189400
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.364
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7510 relative, ratio 1.1365
+  history dependence, untrained  1.1523 relative, ratio 1.6867
+  trained over untrained         0.67
+  per frame sensitivity          0.5324 0.4965 0.5610 0.6608
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[7 of 93]  bl_h_t100_s3_182125
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.4891
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9198 relative, ratio 0.9762
+  history dependence, untrained  1.1367 relative, ratio 1.6483
+  trained over untrained         0.59
+  per frame sensitivity          0.7041 0.6300 0.6176 0.9422
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[8 of 93]  bl_h_t100_s4_182126
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   0.2668
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9210 relative, ratio 1.0870
+  history dependence, untrained  1.1523 relative, ratio 1.6923
+  trained over untrained         0.64
+  per frame sensitivity          0.6761 0.6413 0.6529 0.8473
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[9 of 93]  bl_h_t080_s0_185822
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.2997
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8232 relative, ratio 0.9585
+  history dependence, untrained  1.1567 relative, ratio 1.6775
+  trained over untrained         0.57
+  per frame sensitivity          0.5824 0.5485 0.6061 0.8589
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[10 of 93]  bl_h_t080_s1_185823
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3519
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8288 relative, ratio 1.1545
+  history dependence, untrained  1.1424 relative, ratio 1.6278
+  trained over untrained         0.71
+  per frame sensitivity          0.5600 0.5293 0.5565 0.7179
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[11 of 93]  bl_h_t080_s2_189397
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3358
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8988 relative, ratio 1.0633
+  history dependence, untrained  1.1772 relative, ratio 1.6768
+  trained over untrained         0.63
+  per frame sensitivity          0.6075 0.6176 0.6507 0.8453
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[12 of 93]  bl_h_t090_s0_189398
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.4581
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6339 relative, ratio 1.0356
+  history dependence, untrained  1.1699 relative, ratio 1.6682
+  trained over untrained         0.62
+  per frame sensitivity          0.4375 0.4283 0.4337 0.6121
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[13 of 93]  bl_h_t090_s1_189399
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3302
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8649 relative, ratio 1.0231
+  history dependence, untrained  1.1627 relative, ratio 1.6822
+  trained over untrained         0.61
+  per frame sensitivity          0.6257 0.5752 0.5665 0.8454
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[14 of 93]  bl_h_t090_s2_189400
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.364
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7510 relative, ratio 1.1365
+  history dependence, untrained  1.1581 relative, ratio 1.7049
+  trained over untrained         0.67
+  per frame sensitivity          0.5324 0.4965 0.5610 0.6608
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[15 of 93]  bl_h_t100_s3_182125
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.4891
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9198 relative, ratio 0.9762
+  history dependence, untrained  1.1698 relative, ratio 1.7107
+  trained over untrained         0.57
+  per frame sensitivity          0.7041 0.6300 0.6176 0.9422
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[16 of 93]  bl_h_t100_s4_182126
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   0.2668
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9210 relative, ratio 1.0870
+  history dependence, untrained  1.1647 relative, ratio 1.6870
+  trained over untrained         0.64
+  per frame sensitivity          0.6761 0.6413 0.6529 0.8473
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[17 of 93]  ls_h_t100_s0_174676
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               0
+  trunk output RMS   15.89
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0559 relative, ratio 0.1481
+  history dependence, untrained  0.2799 relative, ratio 0.9197
+  trained over untrained         0.16
+
+----------------------------------------------------------------------------------------------------
+[18 of 93]  ls_h_t100_s1_174677
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               1
+  trunk output RMS   55.82
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0138 relative, ratio 0.1248
+  history dependence, untrained  0.1376 relative, ratio 0.4541
+  trained over untrained         0.27
+
+----------------------------------------------------------------------------------------------------
+[19 of 93]  ls_h_t100_s2_175176
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               2
+  trunk output RMS   26.93
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0186 relative, ratio 0.0474
+  history dependence, untrained  0.2400 relative, ratio 0.5804
+  trained over untrained         0.08
+
+----------------------------------------------------------------------------------------------------
+[20 of 93]  ls_h_t100_s3_182129
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               3
+  trunk output RMS   14.43
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.1073 relative, ratio 0.4189
+  history dependence, untrained  0.2251 relative, ratio 0.5493
+  trained over untrained         0.76
+
+----------------------------------------------------------------------------------------------------
+[21 of 93]  ls_h_t100_s4_182130
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               4
+  trunk output RMS   24.65
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0887 relative, ratio 0.2501
+  history dependence, untrained  0.0832 relative, ratio 0.3658
+  trained over untrained         0.68
+
+----------------------------------------------------------------------------------------------------
+[22 of 93]  tf_h_t100_s0_174673
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               0
+  trunk output RMS   69.08
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.020 to 2.048, initialised at 2.0
+  history dependence, trained    0.0589 relative, ratio 0.1407
+  history dependence, untrained  0.0141 relative, ratio 0.0141
+  trained over untrained         9.97
+  attention effective context    6.17 of 10
+
+----------------------------------------------------------------------------------------------------
+[23 of 93]  tf_h_t100_s1_174674
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               1
+  trunk output RMS   86.54
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.027 to 2.048, initialised at 2.0
+  history dependence, trained    0.0589 relative, ratio 0.2412
+  history dependence, untrained  0.0122 relative, ratio 0.0119
+  trained over untrained         20.25
+  attention effective context    2.72 of 10
+
+----------------------------------------------------------------------------------------------------
+[24 of 93]  tf_h_t100_s2_174675
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               2
+  trunk output RMS   72.81
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.019 to 2.052, initialised at 2.0
+  history dependence, trained    0.0694 relative, ratio 0.2187
+  history dependence, untrained  0.0053 relative, ratio 0.0079
+  trained over untrained         27.57
+  attention effective context    4.44 of 10
+
+----------------------------------------------------------------------------------------------------
+[25 of 93]  tf_h_t100_s3_182127
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               3
+  trunk output RMS   260.9
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.027 to 2.035, initialised at 2.0
+  history dependence, trained    0.0000 relative, ratio 0.0000
+  history dependence, untrained  0.0067 relative, ratio 0.0071
+  trained over untrained         0.00
+  attention effective context    8.61 of 10
+
+----------------------------------------------------------------------------------------------------
+[26 of 93]  tf_h_t100_s4_182128
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               4
+  trunk output RMS   41.56
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.021 to 2.049, initialised at 2.0
+  history dependence, trained    0.0027 relative, ratio 0.0095
+  history dependence, untrained  0.0134 relative, ratio 0.0153
+  trained over untrained         0.62
+  attention effective context    4.85 of 10
+
+----------------------------------------------------------------------------------------------------
+[27 of 93]  ls_h_t100_s0_174676
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               0
+  trunk output RMS   15.89
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0559 relative, ratio 0.1481
+  history dependence, untrained  0.2034 relative, ratio 0.5715
+  trained over untrained         0.26
+
+----------------------------------------------------------------------------------------------------
+[28 of 93]  ls_h_t100_s1_174677
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               1
+  trunk output RMS   55.82
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0138 relative, ratio 0.1248
+  history dependence, untrained  0.2199 relative, ratio 0.7183
+  trained over untrained         0.17
+
+----------------------------------------------------------------------------------------------------
+[29 of 93]  ls_h_t100_s2_175176
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               2
+  trunk output RMS   26.93
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0186 relative, ratio 0.0474
+  history dependence, untrained  0.2123 relative, ratio 0.4807
+  trained over untrained         0.10
+
+----------------------------------------------------------------------------------------------------
+[30 of 93]  ls_h_t100_s3_182129
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               3
+  trunk output RMS   14.43
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.1073 relative, ratio 0.4189
+  history dependence, untrained  0.1843 relative, ratio 0.4331
+  trained over untrained         0.97
+
+----------------------------------------------------------------------------------------------------
+[31 of 93]  ls_h_t100_s4_182130
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               4
+  trunk output RMS   24.65
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0887 relative, ratio 0.2501
+  history dependence, untrained  0.2836 relative, ratio 0.8375
+  trained over untrained         0.30
+
+----------------------------------------------------------------------------------------------------
+[32 of 93]  tf_h_t100_s0_174673
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               0
+  trunk output RMS   69.08
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.020 to 2.048, initialised at 2.0
+  history dependence, trained    0.0589 relative, ratio 0.1407
+  history dependence, untrained  0.0133 relative, ratio 0.0169
+  trained over untrained         8.32
+  attention effective context    6.17 of 10
+
+----------------------------------------------------------------------------------------------------
+[33 of 93]  tf_h_t100_s1_174674
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               1
+  trunk output RMS   86.54
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.027 to 2.048, initialised at 2.0
+  history dependence, trained    0.0589 relative, ratio 0.2412
+  history dependence, untrained  0.0152 relative, ratio 0.0156
+  trained over untrained         15.46
+  attention effective context    2.72 of 10
+
+----------------------------------------------------------------------------------------------------
+[34 of 93]  tf_h_t100_s2_174675
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               2
+  trunk output RMS   72.81
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.019 to 2.052, initialised at 2.0
+  history dependence, trained    0.0694 relative, ratio 0.2187
+  history dependence, untrained  0.0053 relative, ratio 0.0069
+  trained over untrained         31.81
+  attention effective context    4.44 of 10
+
+----------------------------------------------------------------------------------------------------
+[35 of 93]  tf_h_t100_s3_182127
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               3
+  trunk output RMS   260.9
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.027 to 2.035, initialised at 2.0
+  history dependence, trained    0.0000 relative, ratio 0.0000
+  history dependence, untrained  0.0017 relative, ratio 0.0025
+  trained over untrained         0.00
+  attention effective context    8.61 of 10
+
+----------------------------------------------------------------------------------------------------
+[36 of 93]  tf_h_t100_s4_182128
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               4
+  trunk output RMS   41.56
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.021 to 2.049, initialised at 2.0
+  history dependence, trained    0.0027 relative, ratio 0.0095
+  history dependence, untrained  0.0163 relative, ratio 0.0165
+  trained over untrained         0.58
+  attention effective context    4.85 of 10
+
+----------------------------------------------------------------------------------------------------
+[37 of 93]  bl_h_t030_s0_165871
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.3035
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7751 relative, ratio 1.0628
+  history dependence, untrained  1.1656 relative, ratio 1.7026
+  trained over untrained         0.62
+  per frame sensitivity          0.5102 0.5240 0.5833 0.7293
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[38 of 93]  bl_h_t040_s0_168979
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.314
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9217 relative, ratio 0.9895
+  history dependence, untrained  1.1616 relative, ratio 1.6798
+  trained over untrained         0.59
+  per frame sensitivity          0.6414 0.6066 0.7397 0.9315
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[39 of 93]  bl_h_t040_s1_168980
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3438
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    1.0085 relative, ratio 1.0623
+  history dependence, untrained  1.1581 relative, ratio 1.6866
+  trained over untrained         0.63
+  per frame sensitivity          0.7120 0.6998 0.7450 0.9494
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[40 of 93]  bl_h_t040_s2_168981
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3333
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8821 relative, ratio 0.9981
+  history dependence, untrained  1.1732 relative, ratio 1.7046
+  trained over untrained         0.59
+  per frame sensitivity          0.6122 0.6004 0.6610 0.8837
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[41 of 93]  bl_h_t050_s0_168983
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.2894
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9537 relative, ratio 0.9911
+  history dependence, untrained  1.1706 relative, ratio 1.6711
+  trained over untrained         0.59
+  per frame sensitivity          0.6770 0.6956 0.7179 0.9623
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[42 of 93]  bl_h_t050_s1_168984
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.2796
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8439 relative, ratio 1.0292
+  history dependence, untrained  1.1558 relative, ratio 1.7119
+  trained over untrained         0.60
+  per frame sensitivity          0.5344 0.5146 0.6181 0.8200
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[43 of 93]  bl_h_t050_s2_168985
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3104
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9399 relative, ratio 1.0351
+  history dependence, untrained  1.1704 relative, ratio 1.6727
+  trained over untrained         0.62
+  per frame sensitivity          0.6833 0.6266 0.6857 0.9081
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[44 of 93]  bl_h_t070_s0_170098
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.2893
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8914 relative, ratio 1.0374
+  history dependence, untrained  1.1722 relative, ratio 1.7002
+  trained over untrained         0.61
+  per frame sensitivity          0.6579 0.6346 0.6765 0.8592
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[45 of 93]  bl_h_t070_s1_170099
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.273
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9411 relative, ratio 0.9965
+  history dependence, untrained  1.1500 relative, ratio 1.6506
+  trained over untrained         0.60
+  per frame sensitivity          0.6501 0.6566 0.7241 0.9445
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[46 of 93]  bl_h_t070_s2_170100
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3389
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8578 relative, ratio 1.0385
+  history dependence, untrained  1.1656 relative, ratio 1.7043
+  trained over untrained         0.61
+  per frame sensitivity          0.6256 0.6065 0.6368 0.8260
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[47 of 93]  bl_h_t100_s0_170101
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.3113
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    1.0535 relative, ratio 1.0936
+  history dependence, untrained  1.1831 relative, ratio 1.7112
+  trained over untrained         0.64
+  per frame sensitivity          0.8051 0.7268 0.7388 0.9633
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[48 of 93]  bl_h_t100_s1_170102
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.2954
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8339 relative, ratio 1.0557
+  history dependence, untrained  1.1694 relative, ratio 1.6759
+  trained over untrained         0.63
+  per frame sensitivity          0.5863 0.5524 0.6057 0.7898
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[49 of 93]  bl_h_t100_s2_170176
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3081
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    1.1338 relative, ratio 1.0785
+  history dependence, untrained  1.1626 relative, ratio 1.6495
+  trained over untrained         0.65
+  per frame sensitivity          0.7915 0.7365 0.7729 1.0513
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[50 of 93]  bl_d_t030_s3_197819
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.2931
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7755 relative, ratio 1.0645
+  history dependence, untrained  1.1665 relative, ratio 1.6747
+  trained over untrained         0.64
+  per frame sensitivity          0.5235 0.5009 0.5495 0.7286
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[51 of 93]  bl_d_t030_s4_197820
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   0.3534
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6933 relative, ratio 1.1427
+  history dependence, untrained  1.1530 relative, ratio 1.6632
+  trained over untrained         0.69
+  per frame sensitivity          0.4426 0.4309 0.4988 0.6067
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[52 of 93]  bl_d_t070_s0_192488
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.59
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8736 relative, ratio 1.1424
+  history dependence, untrained  1.1714 relative, ratio 1.6966
+  trained over untrained         0.67
+  per frame sensitivity          0.5895 0.5672 0.5675 0.7647
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[53 of 93]  bl_d_t070_s1_192489
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3252
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7836 relative, ratio 1.0738
+  history dependence, untrained  1.1584 relative, ratio 1.6743
+  trained over untrained         0.64
+  per frame sensitivity          0.5329 0.5357 0.5501 0.7297
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[54 of 93]  bl_d_t070_s2_192490
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.7806
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7563 relative, ratio 1.0881
+  history dependence, untrained  1.1643 relative, ratio 1.6770
+  trained over untrained         0.65
+  per frame sensitivity          0.5938 0.4849 0.4795 0.6951
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[55 of 93]  bl_d_t090_s0_192491
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.6017
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7039 relative, ratio 1.1221
+  history dependence, untrained  1.1703 relative, ratio 1.6094
+  trained over untrained         0.70
+  per frame sensitivity          0.5122 0.4671 0.4569 0.6273
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[56 of 93]  bl_d_t090_s1_192492
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.5163
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7014 relative, ratio 1.1296
+  history dependence, untrained  1.1449 relative, ratio 1.6542
+  trained over untrained         0.68
+  per frame sensitivity          0.4846 0.4673 0.5292 0.6210
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[57 of 93]  bl_d_t090_s2_192493
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.4948
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.5637 relative, ratio 1.0426
+  history dependence, untrained  1.1595 relative, ratio 1.6559
+  trained over untrained         0.63
+  per frame sensitivity          0.4355 0.3795 0.3812 0.5406
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[58 of 93]  bl_d_t100_s0_196529
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.3979
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    1.0073 relative, ratio 1.2255
+  history dependence, untrained  1.1676 relative, ratio 1.7032
+  trained over untrained         0.72
+  per frame sensitivity          0.7546 0.6439 0.6672 0.8220
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[59 of 93]  bl_d_t100_s1_196530
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.515
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7195 relative, ratio 1.0660
+  history dependence, untrained  1.1631 relative, ratio 1.6544
+  trained over untrained         0.64
+  per frame sensitivity          0.5011 0.5047 0.5350 0.6749
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[60 of 93]  bl_d_t100_s2_196531
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.2376
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9992 relative, ratio 1.1095
+  history dependence, untrained  1.1687 relative, ratio 1.7049
+  trained over untrained         0.65
+  per frame sensitivity          0.6707 0.6684 0.7238 0.9006
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[61 of 93]  ls_d_t030_s3_197817
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               3
+  trunk output RMS   15.1
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0556 relative, ratio 0.1543
+  history dependence, untrained  0.0805 relative, ratio 0.2913
+  trained over untrained         0.53
+
+----------------------------------------------------------------------------------------------------
+[62 of 93]  ls_d_t030_s4_197818
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               4
+  trunk output RMS   20.66
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  the run name and the stored keys both say recurrent
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0750 relative, ratio 0.2188
+  history dependence, untrained  0.2224 relative, ratio 0.7493
+  trained over untrained         0.29
+
+----------------------------------------------------------------------------------------------------
+[63 of 93]  tf_d_t030_s3_197815
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               3
+  trunk output RMS   949.7
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.035 to 2.049, initialised at 2.0
+  history dependence, trained    0.0145 relative, ratio 0.0220
+  history dependence, untrained  0.0017 relative, ratio 0.0021
+  trained over untrained         10.48
+  attention effective context    2.96 of 10
+
+----------------------------------------------------------------------------------------------------
+[64 of 93]  tf_d_t030_s4_197816
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               4
+  trunk output RMS   116.3
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.015 to 2.040, initialised at 2.0
+  history dependence, trained    0.0013 relative, ratio 0.0104
+  history dependence, untrained  0.0081 relative, ratio 0.0092
+  trained over untrained         1.13
+  attention effective context    4.99 of 10
+
+----------------------------------------------------------------------------------------------------
+[65 of 93]  VOID_tf_dw_s0_103262
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               0
+  trunk output RMS   23.59
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0364 relative, ratio 0.1009
+  history dependence, untrained  0.1023 relative, ratio 0.3482
+  trained over untrained         0.29
+
+----------------------------------------------------------------------------------------------------
+[66 of 93]  VOID_tf_dw_s1_103264
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  seed               1
+  trunk output RMS   47.29
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0439 relative, ratio 0.2421
+  history dependence, untrained  0.1185 relative, ratio 0.5030
+  trained over untrained         0.48
+
+----------------------------------------------------------------------------------------------------
+[67 of 93]  abl_bi05_121828
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   18.23
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0283 relative, ratio 0.0606
+  history dependence, untrained  0.2302 relative, ratio 0.5818
+  trained over untrained         0.10
+
+----------------------------------------------------------------------------------------------------
+[68 of 93]  abl_mem128_121825
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   6.737
+  geometry input 512, hidden 64, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0778 relative, ratio 0.1116
+  history dependence, untrained  0.3645 relative, ratio 0.5224
+  trained over untrained         0.21
+
+----------------------------------------------------------------------------------------------------
+[69 of 93]  abl_mem256_121822
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   17.48
+  geometry input 512, hidden 128, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0687 relative, ratio 0.1825
+  history dependence, untrained  0.1436 relative, ratio 0.4885
+  trained over untrained         0.37
+
+----------------------------------------------------------------------------------------------------
+[70 of 93]  abl_seq05_121823
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   35.05
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0138 relative, ratio 0.0478
+  history dependence, untrained  0.0602 relative, ratio 0.2317
+  trained over untrained         0.21
+
+----------------------------------------------------------------------------------------------------
+[71 of 93]  abl_seq15_121820
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   9.956
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0798 relative, ratio 0.1961
+  history dependence, untrained  0.1830 relative, ratio 0.5932
+  trained over untrained         0.33
+
+----------------------------------------------------------------------------------------------------
+[72 of 93]  abl_seq20_121821
+----------------------------------------------------------------------------------------------------
+  architecture       recurrent
+  trunk output RMS   5.23
+  geometry input 512, hidden 256, 1 layer(s)
+  [PASS]  weight load, 4 tensors, 0 missing, 0 unexpected
+  history dependence, trained    0.0858 relative, ratio 0.1999
+  history dependence, untrained  0.2440 relative, ratio 0.5495
+  trained over untrained         0.36
+
+----------------------------------------------------------------------------------------------------
+[73 of 93]  bl_h_w02_s0_148722
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.4305
+  no temporal module, so history is carried in the stacked observation
+  2 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.7757 relative, ratio 0.8163
+  history dependence, untrained  0.9492 relative, ratio 0.9858
+  trained over untrained         0.83
+  per frame sensitivity          0.7757 0.9503
+  most influential frame         index 1
+
+----------------------------------------------------------------------------------------------------
+[74 of 93]  bl_h_w02_s1_148723
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.3962
+  no temporal module, so history is carried in the stacked observation
+  2 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8050 relative, ratio 0.8652
+  history dependence, untrained  0.9378 relative, ratio 0.9869
+  trained over untrained         0.88
+  per frame sensitivity          0.8050 0.9305
+  most influential frame         index 1
+
+----------------------------------------------------------------------------------------------------
+[75 of 93]  bl_h_w02_s2_148724
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.3713
+  no temporal module, so history is carried in the stacked observation
+  2 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8772 relative, ratio 0.9782
+  history dependence, untrained  0.9499 relative, ratio 0.9905
+  trained over untrained         0.99
+  per frame sensitivity          0.8968 0.8772
+  most influential frame         index 0
+
+----------------------------------------------------------------------------------------------------
+[76 of 93]  bl_h_w08_s0_148725
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.7842
+  no temporal module, so history is carried in the stacked observation
+  8 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6748 relative, ratio 1.5533
+  history dependence, untrained  1.2877 relative, ratio 2.4876
+  trained over untrained         0.62
+  per frame sensitivity          0.2799 0.2827 0.2716 0.3004 0.2951 0.3452 0.3573 0.4344
+  most influential frame         index 7
+
+----------------------------------------------------------------------------------------------------
+[77 of 93]  bl_h_w08_s0_155523
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.7842
+  no temporal module, so history is carried in the stacked observation
+  8 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6748 relative, ratio 1.5533
+  history dependence, untrained  1.2943 relative, ratio 2.5098
+  trained over untrained         0.62
+  per frame sensitivity          0.2799 0.2827 0.2716 0.3004 0.2951 0.3452 0.3573 0.4344
+  most influential frame         index 7
+
+----------------------------------------------------------------------------------------------------
+[78 of 93]  bl_h_w08_s1_148726
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               1
+  trunk output RMS   0.5213
+  no temporal module, so history is carried in the stacked observation
+  8 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6487 relative, ratio 1.4640
+  history dependence, untrained  1.2746 relative, ratio 2.4891
+  trained over untrained         0.59
+  per frame sensitivity          0.2454 0.3028 0.2502 0.2871 0.3059 0.3000 0.3092 0.4431
+  most influential frame         index 7
+
+----------------------------------------------------------------------------------------------------
+[79 of 93]  bl_h_w08_s2_124764
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.52
+  no temporal module, so history is carried in the stacked observation
+  8 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6523 relative, ratio 1.3814
+  history dependence, untrained  1.3147 relative, ratio 2.5726
+  trained over untrained         0.54
+  per frame sensitivity          0.2810 0.2712 0.2956 0.3307 0.3245 0.3606 0.3423 0.4722
+  most influential frame         index 7
+
+----------------------------------------------------------------------------------------------------
+[80 of 93]  bl_h_w10_s0_131082
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.7481
+  no temporal module, so history is carried in the stacked observation
+  10 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.4089 relative, ratio 1.4144
+  history dependence, untrained  1.3186 relative, ratio 2.8013
+  trained over untrained         0.50
+  per frame sensitivity          0.1604 0.1441 0.1455 0.1527 0.1569 0.1597 0.1941 0.2030 0.2309 0.2891
+  most influential frame         index 9
+
+----------------------------------------------------------------------------------------------------
+[81 of 93]  bl_h_w16_s0_124762
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               0
+  trunk output RMS   0.7442
+  no temporal module, so history is carried in the stacked observation
+  16 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.3270 relative, ratio 1.4971
+  history dependence, untrained  1.3313 relative, ratio 3.6545
+  trained over untrained         0.41
+  per frame sensitivity          0.0904 0.0916 0.0885 0.0853 0.0903 0.0936 0.0958 0.0872 0.0937 0.0992 0.1230 0.1211 0.1112 0.1330 0.1444 0.2184
+  most influential frame         index 15
+
+----------------------------------------------------------------------------------------------------
+[82 of 93]  bl_h_w16_s2_131086
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               2
+  trunk output RMS   0.7697
+  no temporal module, so history is carried in the stacked observation
+  16 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.4244 relative, ratio 1.7072
+  history dependence, untrained  1.3226 relative, ratio 3.6307
+  trained over untrained         0.47
+  per frame sensitivity          0.1073 0.1040 0.1153 0.1032 0.1257 0.1065 0.1174 0.1329 0.1377 0.1215 0.1381 0.1387 0.1355 0.1506 0.1500 0.2486
+  most influential frame         index 15
+
+----------------------------------------------------------------------------------------------------
+[83 of 93]  tf_dw_s1_118946
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               1
+  trunk output RMS   176.4
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.029 to 2.031, initialised at 2.0
+  history dependence, trained    0.0000 relative, ratio 0.0002
+  history dependence, untrained  0.0036 relative, ratio 0.0045
+  trained over untrained         0.04
+  attention effective context    8.03 of 10
+
+----------------------------------------------------------------------------------------------------
+[84 of 93]  tf_hz_s0_112049
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               0
+  trunk output RMS   441.1
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.039 to 2.063, initialised at 2.0
+  history dependence, trained    0.0001 relative, ratio 0.0007
+  history dependence, untrained  0.0006 relative, ratio 0.0012
+  trained over untrained         0.55
+  attention effective context    9.60 of 10
+
+----------------------------------------------------------------------------------------------------
+[85 of 93]  tf_hz_s1_112050
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               1
+  trunk output RMS   37.48
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.035 to 2.044, initialised at 2.0
+  history dependence, trained    0.0000 relative, ratio 0.0001
+  history dependence, untrained  0.0094 relative, ratio 0.0122
+  trained over untrained         0.01
+  attention effective context    4.86 of 10
+
+----------------------------------------------------------------------------------------------------
+[86 of 93]  tf_hz_s2_114720
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               2
+  trunk output RMS   128.2
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.031 to 2.051, initialised at 2.0
+  history dependence, trained    0.0053 relative, ratio 0.0318
+  history dependence, untrained  0.0054 relative, ratio 0.0068
+  trained over untrained         4.64
+  attention effective context    7.26 of 10
+
+----------------------------------------------------------------------------------------------------
+[87 of 93]  tf_hz_s2_118947
+----------------------------------------------------------------------------------------------------
+  architecture       transformer
+  seed               2
+  trunk output RMS   128.2
+  geometry d_model 256, 2 layers, max_seq_len 64, input 512
+  [PASS]  the run name and the stored keys both say transformer
+  [PASS]  weight load, 57 tensors, 0 missing, 0 unexpected
+  [PASS]  no future leakage, forward propagation intact
+  [PASS]  attention gate bias 2.031 to 2.051, initialised at 2.0
+  history dependence, trained    0.0053 relative, ratio 0.0318
+  history dependence, untrained  0.0050 relative, ratio 0.0063
+  trained over untrained         5.01
+  attention effective context    7.26 of 10
+
+----------------------------------------------------------------------------------------------------
+[88 of 93]  bl_h_w02_s3_250452
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.3782
+  no temporal module, so history is carried in the stacked observation
+  2 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9887 relative, ratio 0.9180
+  history dependence, untrained  0.9263 relative, ratio 0.9824
+  trained over untrained         0.93
+  per frame sensitivity          0.9887 1.0771
+  most influential frame         index 1
+
+----------------------------------------------------------------------------------------------------
+[89 of 93]  bl_h_w02_s4_250453
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   0.594
+  no temporal module, so history is carried in the stacked observation
+  2 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.6857 relative, ratio 0.8635
+  history dependence, untrained  0.9590 relative, ratio 0.9957
+  trained over untrained         0.87
+  per frame sensitivity          0.6857 0.7942
+  most influential frame         index 1
+
+----------------------------------------------------------------------------------------------------
+[90 of 93]  bl_h_w04_s3_250450
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.3365
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.9012 relative, ratio 1.0957
+  history dependence, untrained  1.1722 relative, ratio 1.6824
+  trained over untrained         0.65
+  per frame sensitivity          0.6081 0.6524 0.5951 0.8225
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[91 of 93]  bl_h_w04_s4_250451
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   0.3771
+  no temporal module, so history is carried in the stacked observation
+  4 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.8204 relative, ratio 1.0388
+  history dependence, untrained  1.1550 relative, ratio 1.6921
+  trained over untrained         0.61
+  per frame sensitivity          0.5467 0.5440 0.5838 0.7897
+  most influential frame         index 3
+
+----------------------------------------------------------------------------------------------------
+[92 of 93]  bl_h_w16_s3_250454
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               3
+  trunk output RMS   0.6816
+  no temporal module, so history is carried in the stacked observation
+  16 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.4462 relative, ratio 1.3142
+  history dependence, untrained  1.3270 relative, ratio 3.6370
+  trained over untrained         0.36
+  per frame sensitivity          0.1130 0.1117 0.1237 0.1235 0.1286 0.1273 0.1087 0.1268 0.1341 0.1587 0.1662 0.1515 0.1677 0.1749 0.1917 0.3395
+  most influential frame         index 15
+
+----------------------------------------------------------------------------------------------------
+[93 of 93]  bl_h_w16_s4_250455
+----------------------------------------------------------------------------------------------------
+  architecture       frame stacking
+  seed               4
+  trunk output RMS   1.18
+  no temporal module, so history is carried in the stacked observation
+  16 stacked frames, vector block 17 wide per frame
+  [PASS]  the run name and the stored keys both say frame stacking
+  history dependence, trained    0.3594 relative, ratio 1.4085
+  history dependence, untrained  1.2995 relative, ratio 3.5662
+  trained over untrained         0.39
+  per frame sensitivity          0.0807 0.0870 0.0979 0.0847 0.0981 0.0931 0.0899 0.1145 0.1190 0.1101 0.1012 0.1270 0.1476 0.1393 0.1620 0.2551
+  most influential frame         index 15
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+  run                          architecture     trunk RMS   trained  untrained   factor  context
+  bl_h_t080_s0_185822          frame stacking      0.2997    0.9585     1.6968     0.56      n/a
+  bl_h_t080_s1_185823          frame stacking      0.3519    1.1545     1.6880     0.68      n/a
+  bl_h_t080_s2_189397          frame stacking      0.3358    1.0633     1.6857     0.63      n/a
+  bl_h_t090_s0_189398          frame stacking      0.4581    1.0356     1.6965     0.61      n/a
+  bl_h_t090_s1_189399          frame stacking      0.3302    1.0231     1.6886     0.61      n/a
+  bl_h_t090_s2_189400          frame stacking       0.364    1.1365     1.6867     0.67      n/a
+  bl_h_t100_s3_182125          frame stacking      0.4891    0.9762     1.6483     0.59      n/a
+  bl_h_t100_s4_182126          frame stacking      0.2668    1.0870     1.6923     0.64      n/a
+  bl_h_t080_s0_185822          frame stacking      0.2997    0.9585     1.6775     0.57      n/a
+  bl_h_t080_s1_185823          frame stacking      0.3519    1.1545     1.6278     0.71      n/a
+  bl_h_t080_s2_189397          frame stacking      0.3358    1.0633     1.6768     0.63      n/a
+  bl_h_t090_s0_189398          frame stacking      0.4581    1.0356     1.6682     0.62      n/a
+  bl_h_t090_s1_189399          frame stacking      0.3302    1.0231     1.6822     0.61      n/a
+  bl_h_t090_s2_189400          frame stacking       0.364    1.1365     1.7049     0.67      n/a
+  bl_h_t100_s3_182125          frame stacking      0.4891    0.9762     1.7107     0.57      n/a
+  bl_h_t100_s4_182126          frame stacking      0.2668    1.0870     1.6870     0.64      n/a
+  ls_h_t100_s0_174676          recurrent            15.89    0.1481     0.9197     0.16      n/a
+  ls_h_t100_s1_174677          recurrent            55.82    0.1248     0.4541     0.27      n/a
+  ls_h_t100_s2_175176          recurrent            26.93    0.0474     0.5804     0.08      n/a
+  ls_h_t100_s3_182129          recurrent            14.43    0.4189     0.5493     0.76      n/a
+  ls_h_t100_s4_182130          recurrent            24.65    0.2501     0.3658     0.68      n/a
+  tf_h_t100_s0_174673          transformer          69.08    0.1407     0.0141     9.97     6.17
+  tf_h_t100_s1_174674          transformer          86.54    0.2412     0.0119    20.25     2.72
+  tf_h_t100_s2_174675          transformer          72.81    0.2187     0.0079    27.57     4.44
+  tf_h_t100_s3_182127          transformer          260.9    0.0000     0.0071     0.00     8.61
+  tf_h_t100_s4_182128          transformer          41.56    0.0095     0.0153     0.62     4.85
+  ls_h_t100_s0_174676          recurrent            15.89    0.1481     0.5715     0.26      n/a
+  ls_h_t100_s1_174677          recurrent            55.82    0.1248     0.7183     0.17      n/a
+  ls_h_t100_s2_175176          recurrent            26.93    0.0474     0.4807     0.10      n/a
+  ls_h_t100_s3_182129          recurrent            14.43    0.4189     0.4331     0.97      n/a
+  ls_h_t100_s4_182130          recurrent            24.65    0.2501     0.8375     0.30      n/a
+  tf_h_t100_s0_174673          transformer          69.08    0.1407     0.0169     8.32     6.17
+  tf_h_t100_s1_174674          transformer          86.54    0.2412     0.0156    15.46     2.72
+  tf_h_t100_s2_174675          transformer          72.81    0.2187     0.0069    31.81     4.44
+  tf_h_t100_s3_182127          transformer          260.9    0.0000     0.0025     0.00     8.61
+  tf_h_t100_s4_182128          transformer          41.56    0.0095     0.0165     0.58     4.85
+  bl_h_t030_s0_165871          frame stacking      0.3035    1.0628     1.7026     0.62      n/a
+  bl_h_t040_s0_168979          frame stacking       0.314    0.9895     1.6798     0.59      n/a
+  bl_h_t040_s1_168980          frame stacking      0.3438    1.0623     1.6866     0.63      n/a
+  bl_h_t040_s2_168981          frame stacking      0.3333    0.9981     1.7046     0.59      n/a
+  bl_h_t050_s0_168983          frame stacking      0.2894    0.9911     1.6711     0.59      n/a
+  bl_h_t050_s1_168984          frame stacking      0.2796    1.0292     1.7119     0.60      n/a
+  bl_h_t050_s2_168985          frame stacking      0.3104    1.0351     1.6727     0.62      n/a
+  bl_h_t070_s0_170098          frame stacking      0.2893    1.0374     1.7002     0.61      n/a
+  bl_h_t070_s1_170099          frame stacking       0.273    0.9965     1.6506     0.60      n/a
+  bl_h_t070_s2_170100          frame stacking      0.3389    1.0385     1.7043     0.61      n/a
+  bl_h_t100_s0_170101          frame stacking      0.3113    1.0936     1.7112     0.64      n/a
+  bl_h_t100_s1_170102          frame stacking      0.2954    1.0557     1.6759     0.63      n/a
+  bl_h_t100_s2_170176          frame stacking      0.3081    1.0785     1.6495     0.65      n/a
+  bl_d_t030_s3_197819          frame stacking      0.2931    1.0645     1.6747     0.64      n/a
+  bl_d_t030_s4_197820          frame stacking      0.3534    1.1427     1.6632     0.69      n/a
+  bl_d_t070_s0_192488          frame stacking        0.59    1.1424     1.6966     0.67      n/a
+  bl_d_t070_s1_192489          frame stacking      0.3252    1.0738     1.6743     0.64      n/a
+  bl_d_t070_s2_192490          frame stacking      0.7806    1.0881     1.6770     0.65      n/a
+  bl_d_t090_s0_192491          frame stacking      0.6017    1.1221     1.6094     0.70      n/a
+  bl_d_t090_s1_192492          frame stacking      0.5163    1.1296     1.6542     0.68      n/a
+  bl_d_t090_s2_192493          frame stacking      0.4948    1.0426     1.6559     0.63      n/a
+  bl_d_t100_s0_196529          frame stacking      0.3979    1.2255     1.7032     0.72      n/a
+  bl_d_t100_s1_196530          frame stacking       0.515    1.0660     1.6544     0.64      n/a
+  bl_d_t100_s2_196531          frame stacking      0.2376    1.1095     1.7049     0.65      n/a
+  ls_d_t030_s3_197817          recurrent             15.1    0.1543     0.2913     0.53      n/a
+  ls_d_t030_s4_197818          recurrent            20.66    0.2188     0.7493     0.29      n/a
+  tf_d_t030_s3_197815          transformer          949.7    0.0220     0.0021    10.48     2.96
+  tf_d_t030_s4_197816          transformer          116.3    0.0104     0.0092     1.13     4.99
+  VOID_tf_dw_s0_103262         recurrent            23.59    0.1009     0.3482     0.29      n/a
+  VOID_tf_dw_s1_103264         recurrent            47.29    0.2421     0.5030     0.48      n/a
+  abl_bi05_121828              recurrent            18.23    0.0606     0.5818     0.10      n/a
+  abl_mem128_121825            recurrent            6.737    0.1116     0.5224     0.21      n/a
+  abl_mem256_121822            recurrent            17.48    0.1825     0.4885     0.37      n/a
+  abl_seq05_121823             recurrent            35.05    0.0478     0.2317     0.21      n/a
+  abl_seq15_121820             recurrent            9.956    0.1961     0.5932     0.33      n/a
+  abl_seq20_121821             recurrent             5.23    0.1999     0.5495     0.36      n/a
+  bl_h_w02_s0_148722           frame stacking      0.4305    0.8163     0.9858     0.83      n/a
+  bl_h_w02_s1_148723           frame stacking      0.3962    0.8652     0.9869     0.88      n/a
+  bl_h_w02_s2_148724           frame stacking      0.3713    0.9782     0.9905     0.99      n/a
+  bl_h_w08_s0_148725           frame stacking      0.7842    1.5533     2.4876     0.62      n/a
+  bl_h_w08_s0_155523           frame stacking      0.7842    1.5533     2.5098     0.62      n/a
+  bl_h_w08_s1_148726           frame stacking      0.5213    1.4640     2.4891     0.59      n/a
+  bl_h_w08_s2_124764           frame stacking        0.52    1.3814     2.5726     0.54      n/a
+  bl_h_w10_s0_131082           frame stacking      0.7481    1.4144     2.8013     0.50      n/a
+  bl_h_w16_s0_124762           frame stacking      0.7442    1.4971     3.6545     0.41      n/a
+  bl_h_w16_s2_131086           frame stacking      0.7697    1.7072     3.6307     0.47      n/a
+  tf_dw_s1_118946              transformer          176.4    0.0002     0.0045     0.04     8.03
+  tf_hz_s0_112049              transformer          441.1    0.0007     0.0012     0.55     9.60
+  tf_hz_s1_112050              transformer          37.48    0.0001     0.0122     0.01     4.86
+  tf_hz_s2_114720              transformer          128.2    0.0318     0.0068     4.64     7.26
+  tf_hz_s2_118947              transformer          128.2    0.0318     0.0063     5.01     7.26
+  bl_h_w02_s3_250452           frame stacking      0.3782    0.9180     0.9824     0.93      n/a
+  bl_h_w02_s4_250453           frame stacking       0.594    0.8635     0.9957     0.87      n/a
+  bl_h_w04_s3_250450           frame stacking      0.3365    1.0957     1.6824     0.65      n/a
+  bl_h_w04_s4_250451           frame stacking      0.3771    1.0388     1.6921     0.61      n/a
+  bl_h_w16_s3_250454           frame stacking      0.6816    1.3142     3.6370     0.36      n/a
+  bl_h_w16_s4_250455           frame stacking        1.18    1.4085     3.5662     0.39      n/a
+
+====================================================================================================
+IMPLEMENTATION VERDICT
+====================================================================================================
+  Every structural check passed on all 93 checkpoint(s).
+====================================================================================================

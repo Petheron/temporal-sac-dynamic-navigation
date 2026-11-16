@@ -1,0 +1,149 @@
+behaviors:
+  NavAgent:
+    trainer_type: sac
+    hyperparameters:
+      batch_size: 32
+      buffer_size: 250000
+      learning_rate: 0.0003
+      learning_rate_schedule: constant
+      buffer_init_steps: 10000
+      tau: 0.005
+      steps_per_update: 4
+      save_replay_buffer: false
+      init_entcoef: 0.2
+    network_settings:
+      normalize: true
+      hidden_units: 512
+      num_layers: 2
+      vis_encode_type: simple
+      memory:
+        sequence_length: 0
+        memory_size: 0
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    keep_checkpoints: 5
+    max_steps: 1000000
+    time_horizon: 1000
+    summary_freq: 10000
+    checkpoint_interval: 50000
+environment_parameters:
+    num_agents: 8
+    step_limit: 1000
+    num_test_eps: 0
+    seed: 4298347
+    seeds: [4298347, 3690292, 3957050, 2412994, 3989801]
+    
+    time_step_penalty: -0.001
+    failure_penalty: -1.0
+    normalizing_distance: 80
+    euclidean_step_limit: 0
+    euclidean_step_scale_factor: 0.5
+    
+    observation_stacks: 4
+    num_action_repeat: 4
+    
+    encode_vector_inputs: false
+    use_visual_dense_layers: true
+    
+    observe_rel_pos: 1
+    observe_global_pos: 0
+    observe_velocity: 1
+    observe_acceleration: 1
+    observe_last_actions: 0
+    
+    vector_normalization_type: 1
+    observed_rotation_type: 1
+    vector_spatial_orientation_type: 0
+    
+    use_raycasts: 0
+    ray_length: 20
+    
+    visible_layer_mask: !!float 0000001
+    visible_mutator_mask: !!float 000000
+    observe_mutator: 0
+    
+    use_depthmap_sensor: 1
+    depthmap_width: 9
+    depthmap_height: 9
+    depthmap_ray_length: 20
+    depthmap_max_angle: 45
+    depthmap_num_channels: 1
+    
+    2D_init_channel: 32
+    2D_kernel_size: 3
+    2D_stride: 2
+    2D_padding: 1
+    2D_num_convs: 2
+    
+    occupancy_map_grid_size: 128
+    occupancy_map_levels_of_detail: 1
+    occupancy_map_cell_size: 1.0
+    occupancy_map_cell_size_buffer: 1
+    
+    use_boxcast_sensor: 1
+    bc_depth: 9
+    bc_height: 9
+    bc_width: 9
+    bc_num_channels: 1
+    bc_rotate_with_agent: 0
+    bc_correct_forbidden_angles: 0
+    
+    3D_init_channel: 32
+    3D_kernel_size: 3
+    3D_stride: 2
+    3D_padding: 1
+    3D_num_convs: 2
+    
+    3D_use_embedding: 0
+    3D_num_embedding_dims: 4
+    3D_embedding_dictionary_size: 7
+    
+    use_positional_embedding_sensor: 0
+    positional_encoding_embedding_size: 16
+    use_sestini_encoding: 1
+    
+    agent_type: 2
+    level_type: 1
+    
+    use_level_sequence: 0
+    level_sequence_delay: 20000
+    
+    store_positions: 0
+    use_dynamics: 0
+    death_field_y_offset: -10
+    
+    sampling_type: 2
+    sampling_half_height: 30.0
+    poisson_min_radius: 5.0
+    
+    action_bit_mask: !!float 1110000
+    
+    num_midair_jumps: 0
+    
+    use_wallride: 0
+    use_wallclimb: 0
+    use_walljump: 0
+    
+    use_momentum: 0
+    use_pitch: 1
+    use_sprint: 0
+    use_crouch: 0
+    use_slide: 0
+    
+    replay_buffer_type: basic
+    use_cer: false
+    n_step: 3
+    burn_in_length: 0
+    overlap_length: 0
+    norm_type: mlagents
+    
+    per_alpha: 0.9
+    per_beta: 0.6
+    per_eta: 0.9
+    
+    max_goal_distance: 80
+    use_curriculum: false
+    num_curriculum_steps: 10
+    curriculum_success_rate: 0.9

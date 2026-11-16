@@ -1,7 +1,7 @@
 import numpy as np
 from enum import Enum
 from typing import Tuple, Union, List, Optional
-from math import floor
+import math
 
 import torch
 import torch.nn as nn
@@ -1186,3 +1186,237 @@ class LSTM(nn.Module):
                         param.data[idx * block_size: (idx + 1) * block_size].add_(
                             forget_bias
                         )
+
+# ==================== GTrXL Components ====================
+
+class GRUGate(nn.Module):
+    """GRU-style gating for residual connections.
+    Biases toward the residual path early in training."""
+
+    def __init__(self, d_model, bg=2.0):
+        super(GRUGate, self).__init__()
+        self.Wr = nn.Linear(d_model, d_model, bias=False)
+        self.Ur = nn.Linear(d_model, d_model, bias=False)
+        self.Wz = nn.Linear(d_model, d_model, bias=False)
+        self.Uz = nn.Linear(d_model, d_model, bias=False)
+        self.Wg = nn.Linear(d_model, d_model, bias=False)
+        self.Ug = nn.Linear(d_model, d_model, bias=False)
+        self.bg = nn.Parameter(torch.full((d_model,), bg))
+
+        for module in [self.Wr, self.Ur, self.Wz, self.Uz, self.Wg, self.Ug]:
+            nn.init.xavier_uniform_(module.weight)
+
+    def forward(self, x, y):
+        """x is the residual, y is the sublayer output."""
+        r = torch.sigmoid(self.Wr(y) + self.Ur(x))
+        z = torch.sigmoid(self.Wz(y) + self.Uz(x) - self.bg)
+        h = torch.tanh(self.Wg(y) + self.Ug(r * x))
+        return (1 - z) * x + z * h
+
+
+class GTrXLLayer(nn.Module):
+    """Single transformer layer with pre-norm and optional GRU-gated residuals."""
+
+    def __init__(self, d_model, n_heads, d_ff, use_gru_gating=True, dropout=0.0):
+        super(GTrXLLayer, self).__init__()
+        self.use_gru_gating = use_gru_gating
+
+        self.norm_attn = nn.LayerNorm(d_model)
+        self.norm_ff = nn.LayerNorm(d_model)
+
+        self.attention = nn.MultiheadAttention(d_model, n_heads, dropout=dropout)
+
+        self.feedforward = nn.Sequential(
+            nn.Linear(d_model, d_ff),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(d_ff, d_model),
+            nn.Dropout(dropout)
+        )
+
+        if use_gru_gating:
+            self.gate_attn = GRUGate(d_model)
+            self.gate_ff = GRUGate(d_model)
+
+    def forward(self, x, attn_mask=None):
+        # Pre-norm self-attention
+        residual = x
+        x_norm = self.norm_attn(x)
+        # Transpose to MultiheadAttention's (seq, batch, features) format
+        attn_out, _ = self.attention(
+            x_norm.transpose(0, 1), # query
+            x_norm.transpose(0, 1), # key
+            x_norm.transpose(0, 1), # value
+            attn_mask=attn_mask
+        )
+
+        # Restore the model's (batch, seq, features) tensor format
+        attn_out = attn_out.transpose(0, 1)
+
+        if self.use_gru_gating:
+            x = self.gate_attn(residual, attn_out)
+        else:
+            x = residual + attn_out
+
+        # Pre-norm feedforward
+        residual = x
+        x_norm = self.norm_ff(x)
+        ff_out = self.feedforward(x_norm)
+
+        if self.use_gru_gating:
+            x = self.gate_ff(residual, ff_out)
+        else:
+            x = residual + ff_out
+
+        return x
+
+
+class GTrXL(nn.Module):
+    """Windowed causal transformer with learned positional embeddings and pre-norm."""
+
+    def __init__(self, input_size, d_model, n_heads=4, n_layers=2,
+                 d_ff_multiplier=4, max_seq_len=256, use_gru_gating=True, dropout=0.0):
+        super(GTrXL, self).__init__()
+        self.d_model = d_model
+        self.input_projection = nn.Linear(input_size, d_model)
+        self.positional_embedding = nn.Embedding(max_seq_len, d_model)
+
+        d_ff = d_ff_multiplier * d_model
+        self.layers = nn.ModuleList([
+            GTrXLLayer(d_model, n_heads, d_ff, use_gru_gating, dropout)
+            for _ in range(n_layers)
+        ])
+
+        self.output_norm = nn.LayerNorm(d_model)
+
+        # Precomputed Causal Mask: Non-persistent so it follows the module across devices but stays out of state_dict;
+        # torch 1.8 has no ONNX symbolic for triu at ANY opset, so it mustn't run inside forward()!
+        self.register_buffer(
+            "causal_mask",
+            torch.triu(torch.ones(max_seq_len, max_seq_len, dtype=torch.bool), diagonal=1),
+            persistent=False
+        )
+
+        nn.init.normal_(self.positional_embedding.weight, std=0.02)
+        nn.init.xavier_uniform_(self.input_projection.weight)
+        nn.init.zeros_(self.input_projection.bias)
+
+    @property
+    def memory_size(self):
+        return 2 * self.d_model
+
+    def _generate_causal_mask(self, seq_len, device):
+        """Upper-triangular mask. True = blocked from attention.
+        Sliced from the precomputed buffer; the values are identical to the torch.triu call this replaces."""
+        return self.causal_mask[:seq_len, :seq_len]
+
+    def forward(self, x):
+        """
+        Input: (batch, seq_len, input_size)
+        Output: (batch, seq_len, d_model)
+        """
+        batch, seq_len, _ = x.shape
+
+        x = self.input_projection(x)
+
+        positions = torch.arange(seq_len, device=x.device)
+        x = x + self.positional_embedding(positions)
+
+        if seq_len > 1:
+            causal_mask = self._generate_causal_mask(seq_len, x.device)
+        else:
+            # A single timestep attends only to itself, so there is nothing to mask and None is mathematically identical
+            # It also keeps every mask operation out of the exported ONNX graph, which always traces at sequence length 1
+            causal_mask = None
+
+        for layer in self.layers:
+            x = layer(x, attn_mask=causal_mask)
+
+        x = self.output_norm(x)
+        return x
+
+
+class TransformerNetworkBody(nn.Module):
+    """Network body for transformer-based actor/critic.
+    Same structure as LSTMNetworkBody but replaces the LSTM with GTrXL."""
+
+    def __init__(self,
+                 observation_specs: List[ObservationSpec],
+                 network_settings: NetworkSettings,
+                 encoded_act_size: int = 0,
+                 body_encoder_settings: BodyEncoderSettings = BodyEncoderSettings,
+                 transformer_settings: dict = None
+                 ):
+        super(TransformerNetworkBody, self).__init__()
+
+        self.hidden_size = network_settings.hidden_size
+        self.normalize = network_settings.normalize
+        self.norm_type = network_settings.norm_type
+        self.encode_vector_inputs = network_settings.encode_vector_inputs
+
+        print(self.norm_type)
+
+        self.observation_encoder = ObservationEncoder(
+            observation_specs,
+            self.hidden_size,
+            self.normalize,
+            self.norm_type,
+            self.encode_vector_inputs,
+            network_settings.conv2d_settings,
+            network_settings.conv3d_settings,
+            network_settings.positional_embedding_settings
+        )
+
+        total_encoding_size = self.observation_encoder.total_encoding_size + encoded_act_size
+
+        self.body_encoder = LinearEncoder(
+            total_encoding_size,
+            network_settings.num_layers,
+            self.hidden_size,
+            **body_encoder_settings
+        )
+
+        assert network_settings.memory_settings is not None
+        self.memory_size = network_settings.memory_settings.memory_size
+        self.d_model = self.memory_size // 2
+        self.sequence_length = network_settings.memory_settings.sequence_length
+
+        if transformer_settings is None:
+            transformer_settings = {}
+
+        self.transformer = GTrXL(
+            input_size=self.hidden_size,
+            d_model=self.d_model,
+            n_heads=transformer_settings.get('n_heads', 4),
+            n_layers=transformer_settings.get('n_layers', 2),
+            d_ff_multiplier=transformer_settings.get('d_ff_multiplier', 4),
+            max_seq_len=max(self.sequence_length * 2, 64),
+            use_gru_gating=transformer_settings.get('use_gru_gating', True)
+        )
+
+    def encode(self, states, actions=None):
+        """Run observations (and optional actions) through obs encoder and body encoder."""
+        encoded = self.observation_encoder(states)
+        if actions is not None:
+            encoded = torch.cat([encoded, actions], dim=-1)
+        return self.body_encoder(encoded)
+
+    def forward(self, states, actions=None, sequence_length=1):
+        """
+        Full forward pass. Used during training.
+        Input observations shape: (batch * seq, obs_dim)
+        Output: (batch, seq, d_model)
+        """
+        encoded = self.encode(states, actions)
+        encoded = encoded.reshape(-1, sequence_length, self.hidden_size)
+        return self.transformer(encoded)
+
+    def update_normalization(self, obs: List[torch.Tensor]):
+        if not self.normalize:
+            return
+        self.observation_encoder.update_normalization(obs)
+
+    def copy_normalization(self, network_body):
+        if not self.normalize:
+            return
+        self.observation_encoder.copy_normalization(network_body.observation_encoder)

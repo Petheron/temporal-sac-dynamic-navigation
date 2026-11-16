@@ -1,0 +1,8 @@
+job_name=abl_mem128
+job_id=121825.hpc-head01
+config=sac_lstm_abl_mem128_depthwise_seed0.yaml
+config_subdir=ablation/production
+env_id=106
+node=hpc-exec04.hpc.uts.edu.au
+python_exit=0
+cleanup_at=2026-10-13T14:36:48Z

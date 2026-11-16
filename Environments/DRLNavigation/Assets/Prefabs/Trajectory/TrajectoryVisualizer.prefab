@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectoryPrefab: {fileID: 9023855079995833421, guid: eda4c71f70961a84282ff20e76458aff, type: 3}
   DRLTrajRates: []
-  visibleTrajectoryType: 0
+  visibleTrajectoryType: 1
   visibleTrajectories: 0
   visibleAgentType: 0
   startVertexIndex: -1

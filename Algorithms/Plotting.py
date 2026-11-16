@@ -34,7 +34,8 @@ def plot(result_names:list, mainDir:str, smoothing:float, colors:list, title:str
     Then plot same data for all runs on same plots.
     """
     data_list = []
-    folders = [f.name for f in os.scandir(mainDir) if f.is_dir()]
+    folders = sorted([f.name for f in os.scandir(mainDir) if f.is_dir()])
+    print("Folder Order (As Scanned):", folders)
     for f in folders:
         results_dir = f"{mainDir}/{f}"
         data_list.append(load_data("results", results_dir))
@@ -169,7 +170,7 @@ def plot_many_fill_betweens_on_one_plot(steps_list:list, time_list:list, data_li
         ax2.fill_between(time, data_mean - 2*data_std_err, data_mean + 2*data_std_err, color=color, alpha=alpha)
         ax2.plot(time, data_mean, color=color, label=f'{name}',linewidth=line_width)
 
-        output_means["name"]=[steps,data_mean,data_std_err]
+        output_means[name]=[steps,data_mean,data_std_err]
 
     tick_label_size = 12
     legend_label_size = 12
@@ -222,13 +223,19 @@ def plot_many_fill_betweens_on_one_plot(steps_list:list, time_list:list, data_li
     ax.set_ylabel(f"{plot_name}",fontsize=label_font_size, weight=label_weight)
     ax2.set_ylabel(f"{plot_name}",fontsize=label_font_size, weight=label_weight)
 
-    fig.savefig(f"{save_dir}/{plot_name}.pdf")
-    fig.savefig(f"{save_dir}/{plot_name}.png")
-    fig2.savefig(f"{save_dir}/{plot_name}2.pdf")
-    fig2.savefig(f"{save_dir}/{plot_name}2.png")
+    fig.savefig(f"{save_dir}/{plot_name}.pdf", bbox_inches="tight")
+    fig.savefig(f"{save_dir}/{plot_name}.png", bbox_inches="tight")
+    fig2.savefig(f"{save_dir}/{plot_name}2.pdf", bbox_inches="tight")
+    fig2.savefig(f"{save_dir}/{plot_name}2.png", bbox_inches="tight")
 
     plt.close(fig)
     plt.close(fig2)
+
+    if plot_name in ("Success Rate", "Timeout Rate"):
+        print(f"===== {plot_name}: Final Value Per Series (Legend Assignment Verification) =====")
+        for name, (s, m, e) in output_means.items():
+            print(f"    {name:<16} Final {m[-1]:.3f}   Mean of Last 10 {m[-10:].mean():.3f}")
+
 
     return output_means
 

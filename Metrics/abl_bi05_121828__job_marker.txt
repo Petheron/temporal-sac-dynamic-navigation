@@ -1,0 +1,8 @@
+job_name=abl_bi05
+job_id=121828.hpc-head01
+config=sac_lstm_abl_burnin05_depthwise_seed0.yaml
+config_subdir=ablation/production
+env_id=110
+node=hpc-exec02.hpc.uts.edu.au
+python_exit=killed_before_exit
+cleanup_at=2026-10-14T01:27:01Z

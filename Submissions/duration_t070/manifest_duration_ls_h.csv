@@ -1,0 +1,4 @@
+job_name,run_name,config,arch,env,level_type,window,window_key,duration_s,seed_index,env_id,mem_gb,walltime
+ls_h_t070_s0,ls_h_w10_t070_s0,sac_ls_h_w10_t070_s0.yaml,ls,h,6,10,sequence_length,7.0,0,890,32,48:00:00
+ls_h_t070_s1,ls_h_w10_t070_s1,sac_ls_h_w10_t070_s1.yaml,ls,h,6,10,sequence_length,7.0,1,892,32,48:00:00
+ls_h_t070_s2,ls_h_w10_t070_s2,sac_ls_h_w10_t070_s2.yaml,ls,h,6,10,sequence_length,7.0,2,894,32,48:00:00

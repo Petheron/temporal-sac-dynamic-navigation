@@ -1,0 +1,241 @@
+========================================================================
+PROBE 02  ATTENTION MAP
+========================================================================
+file     D:\Projects\temporal-sac-dynamic-navigation\Results\runs\tf_h_w10_t10.0s_s3\SAC_DRLNavigation\actor_dict_0
+torch    1.8.1+cu111
+seed     20261106
+
+TRANSFORMER GEOMETRY
+  input_size     512
+  d_model        256
+  n_layers       2
+  max_seq_len    64
+
+WEIGHT LOADING
+  tensors offered   57
+  missing keys      0  []
+  unexpected keys   0  []
+
+========================================================================
+PART A  MEASURED ACTIVATION ENTERING THE TRANSFORMER
+========================================================================
+  SOLVED ENCODER GEOMETRY
+    encoder 0  conv3d, kernel 3, stride 2, padding 1, input 9, output 512
+      final_flat 1728 reproduced exactly, 1 geometry solution(s) consistent with it
+    encoder 1  conv2d, kernel 3, stride 2, padding 1, input 9, output 512
+      final_flat 576 reproduced exactly, 1 geometry solution(s) consistent with it
+    encoder 2  vector, 17 features, 999,796 normaliser steps
+    trunk      1041 to 512, 2 layers
+
+  MEASURED TRUNK OUTPUT, WHICH IS THE TRANSFORMER INPUT
+  activation      per element RMS     mean vector norm
+  swish                 256.5239           5729.2363
+  leakyrelu             254.6086           5686.1016
+  relu                  256.5648           5730.1694
+
+  BALANCE INSIDE THE TRANSFORMER INPUT
+    projected content vector norm, estimated   566.8532
+    positional embedding vector norm, measured 7.5424
+    content against position ratio             75.16
+
+  built a real activation window of shape (64, 10, 512)
+
+  SENSITIVITY TO THE 2 OBSERVATION ASSUMPTIONS
+  occupancy  depth max   activation RMS   effective context of 10
+  0.05       0.2                93.7558         6.57
+  0.05       1.0               101.0207         7.06
+  0.05       5.0               163.8200         5.94
+  0.05       20.0              467.1900         4.62
+  0.15       0.2               252.3010         8.67
+  0.15       1.0               259.8134         8.79
+  0.15       5.0               316.0230         8.00
+  0.15       20.0              584.8321         5.06
+  0.30       0.2               422.8165         9.09
+  0.30       1.0               430.3259         9.13
+  0.30       5.0               484.9098         8.93
+  0.30       20.0              734.6600         6.48
+
+========================================================================
+PARTS B AND C  ATTENTION READ DIRECTLY FROM THE TRAINED NETWORK
+========================================================================
+
+ON THE MEASURED REAL ACTIVATION
+  --- trained actor ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.073 0.107 0.096 0.119 0.098 0.087 0.088 0.124 0.099 0.109
+    normalised entropy           0.671  standard deviation 0.096
+    effective context            4.81 of 10 positions,  standard deviation 1.09
+    mass on the current frame    0.109
+    mass on the earlier frames   0.891
+    effective context per head   2.08 1.60 2.36 2.01
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.106 0.099 0.105 0.105 0.087 0.091 0.099 0.107 0.093 0.107
+    normalised entropy           0.933  standard deviation 0.041
+    effective context            8.61 of 10 positions,  standard deviation 0.72
+    mass on the current frame    0.107
+    mass on the earlier frames   0.893
+    effective context per head   8.45 8.12 5.50 7.34
+    full attention matrix, 1 row per query position
+      q0  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000   effective 1.00
+      q1  0.511 0.489 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000   effective 1.91
+      q2  0.336 0.326 0.339 0.000 0.000 0.000 0.000 0.000 0.000 0.000   effective 2.77
+      q3  0.256 0.249 0.254 0.241 0.000 0.000 0.000 0.000 0.000 0.000   effective 3.58
+      q4  0.210 0.202 0.210 0.201 0.177 0.000 0.000 0.000 0.000 0.000   effective 4.43
+      q5  0.178 0.170 0.176 0.170 0.150 0.157 0.000 0.000 0.000 0.000   effective 5.25
+      q6  0.152 0.144 0.150 0.146 0.130 0.134 0.144 0.000 0.000 0.000   effective 6.12
+      q7  0.132 0.123 0.131 0.129 0.111 0.116 0.124 0.135 0.000 0.000   effective 6.97
+      q8  0.118 0.110 0.117 0.116 0.099 0.103 0.110 0.122 0.104 0.000   effective 7.84
+      q9  0.106 0.099 0.105 0.105 0.087 0.091 0.099 0.107 0.093 0.107   effective 8.61
+
+  --- random control ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.100 0.100 0.100 0.100 0.100 0.100 0.100 0.100 0.100 0.100
+    normalised entropy           1.000  standard deviation 0.000
+    effective context            10.00 of 10 positions,  standard deviation 0.00
+    mass on the current frame    0.100
+    mass on the earlier frames   0.900
+    effective context per head   10.00 9.99 9.99 9.99
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.100 0.099 0.101 0.100 0.099 0.100 0.099 0.101 0.100 0.101
+    normalised entropy           0.999  standard deviation 0.000
+    effective context            9.98 of 10 positions,  standard deviation 0.01
+    mass on the current frame    0.101
+    mass on the earlier frames   0.899
+    effective context per head   9.94 9.93 9.90 9.91
+
+  --- context ablation at the last position ---
+    output vector norm                          10.1792
+    change when the 9 earlier frames are swapped  0.0000   relative 0.0000
+    change when the current frame is swapped     0.6972   relative 0.0685
+    change when the window drops to 1 position   0.0049   relative 0.0005
+    history against current frame                0.0000
+
+ON A SYNTHETIC SWEEP, SO THE MEASURED POINT CAN BE PLACED ON THE CURVE
+  --- trained actor at input RMS 0.01 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.168 0.216 0.474 0.026 0.000 0.000 0.000 0.116 0.000 0.000
+    normalised entropy           0.465  standard deviation 0.068
+    effective context            2.95 of 10 positions,  standard deviation 0.47
+    mass on the current frame    0.000
+    mass on the earlier frames   1.000
+    effective context per head   1.08 1.04 1.00 1.07
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.287 0.014 0.010 0.182 0.034 0.024 0.000 0.000 0.006 0.443
+    normalised entropy           0.576  standard deviation 0.047
+    effective context            3.79 of 10 positions,  standard deviation 0.41
+    mass on the current frame    0.443
+    mass on the earlier frames   0.557
+    effective context per head   2.24 1.17 1.13 1.55
+
+  --- trained actor at input RMS 0.1 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.113 0.250 0.215 0.128 0.100 0.035 0.057 0.065 0.012 0.023
+    normalised entropy           0.466  standard deviation 0.103
+    effective context            3.00 of 10 positions,  standard deviation 0.69
+    mass on the current frame    0.023
+    mass on the earlier frames   0.977
+    effective context per head   1.01 1.02 1.00 1.05
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.158 0.087 0.060 0.113 0.071 0.075 0.047 0.027 0.076 0.285
+    normalised entropy           0.606  standard deviation 0.108
+    effective context            4.16 of 10 positions,  standard deviation 0.98
+    mass on the current frame    0.285
+    mass on the earlier frames   0.715
+    effective context per head   1.61 1.22 1.49 1.31
+
+  --- trained actor at input RMS 1 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.075 0.146 0.092 0.118 0.099 0.099 0.136 0.097 0.077 0.062
+    normalised entropy           0.503  standard deviation 0.098
+    effective context            3.26 of 10 positions,  standard deviation 0.71
+    mass on the current frame    0.062
+    mass on the earlier frames   0.938
+    effective context per head   1.06 1.03 1.04 1.05
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.089 0.100 0.064 0.085 0.117 0.093 0.103 0.122 0.114 0.113
+    normalised entropy           0.565  standard deviation 0.137
+    effective context            3.85 of 10 positions,  standard deviation 1.08
+    mass on the current frame    0.113
+    mass on the earlier frames   0.887
+    effective context per head   1.50 1.42 1.43 1.34
+
+  --- trained actor at input RMS 10 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.102 0.126 0.137 0.147 0.072 0.120 0.086 0.052 0.099 0.060
+    normalised entropy           0.480  standard deviation 0.116
+    effective context            3.13 of 10 positions,  standard deviation 0.80
+    mass on the current frame    0.060
+    mass on the earlier frames   0.940
+    effective context per head   1.03 1.03 1.08 1.02
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.101 0.117 0.091 0.095 0.132 0.115 0.076 0.081 0.096 0.096
+    normalised entropy           0.593  standard deviation 0.122
+    effective context            4.06 of 10 positions,  standard deviation 1.02
+    mass on the current frame    0.096
+    mass on the earlier frames   0.904
+    effective context per head   1.46 1.48 1.55 1.41
+
+  --- trained actor at input RMS 100 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.089 0.114 0.081 0.157 0.099 0.101 0.125 0.098 0.066 0.071
+    normalised entropy           0.517  standard deviation 0.118
+    effective context            3.40 of 10 positions,  standard deviation 0.83
+    mass on the current frame    0.071
+    mass on the earlier frames   0.929
+    effective context per head   1.04 1.02 1.04 1.03
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.098 0.092 0.089 0.096 0.109 0.122 0.083 0.116 0.085 0.111
+    normalised entropy           0.595  standard deviation 0.113
+    effective context            4.07 of 10 positions,  standard deviation 1.03
+    mass on the current frame    0.111
+    mass on the earlier frames   0.889
+    effective context per head   1.65 1.50 1.56 1.39
+
+  --- trained actor at input RMS 256.524 ---
+  layer 0
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.081 0.139 0.072 0.078 0.130 0.089 0.108 0.113 0.105 0.086
+    normalised entropy           0.505  standard deviation 0.141
+    effective context            3.35 of 10 positions,  standard deviation 0.90
+    mass on the current frame    0.086
+    mass on the earlier frames   0.914
+    effective context per head   1.04 1.03 1.05 1.03
+  layer 1
+    hook against recomputation   max absolute difference 0.000e+00
+    mean attention row at q9   0.098 0.115 0.098 0.117 0.110 0.106 0.090 0.100 0.082 0.084
+    normalised entropy           0.592  standard deviation 0.149
+    effective context            4.12 of 10 positions,  standard deviation 1.30
+    mass on the current frame    0.084
+    mass on the earlier frames   0.916
+    effective context per head   1.40 1.66 1.79 1.46
+
+  SWEEP SUMMARY, FINAL LAYER, LAST QUERY POSITION
+  input RMS        effective context of 10
+  0.01                  3.79
+  0.1                   4.16
+  1                     3.85
+  10                    4.06
+  100                   4.07
+  256.524               4.12   <-- the measured real activation
+
+========================================================================
+    effective context      8.61 of 10 positions
+    mass on earlier frames 0.893
+    history against current frame at the output 0.0000
+    untrained control for comparison 9.98
+
+========================================================================

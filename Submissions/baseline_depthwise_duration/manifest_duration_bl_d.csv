@@ -1,0 +1,10 @@
+job_name,run_name,config,arch,env,level_type,window,window_key,duration_s,seed_index,env_id,mem_gb,walltime
+bl_d_t070_s0,bl_d_w04_t070_s0,sac_bl_d_w04_t070_s0.yaml,bl,d,5,4,observation_stacks,7.0,0,300,32,08:00:00
+bl_d_t070_s1,bl_d_w04_t070_s1,sac_bl_d_w04_t070_s1.yaml,bl,d,5,4,observation_stacks,7.0,1,302,32,08:00:00
+bl_d_t070_s2,bl_d_w04_t070_s2,sac_bl_d_w04_t070_s2.yaml,bl,d,5,4,observation_stacks,7.0,2,304,32,08:00:00
+bl_d_t090_s0,bl_d_w04_t090_s0,sac_bl_d_w04_t090_s0.yaml,bl,d,5,4,observation_stacks,9.0,0,306,32,08:00:00
+bl_d_t090_s1,bl_d_w04_t090_s1,sac_bl_d_w04_t090_s1.yaml,bl,d,5,4,observation_stacks,9.0,1,308,32,08:00:00
+bl_d_t090_s2,bl_d_w04_t090_s2,sac_bl_d_w04_t090_s2.yaml,bl,d,5,4,observation_stacks,9.0,2,310,32,08:00:00
+bl_d_t100_s0,bl_d_w04_t100_s0,sac_bl_d_w04_t100_s0.yaml,bl,d,5,4,observation_stacks,10.0,0,312,32,08:00:00
+bl_d_t100_s1,bl_d_w04_t100_s1,sac_bl_d_w04_t100_s1.yaml,bl,d,5,4,observation_stacks,10.0,1,314,32,08:00:00
+bl_d_t100_s2,bl_d_w04_t100_s2,sac_bl_d_w04_t100_s2.yaml,bl,d,5,4,observation_stacks,10.0,2,316,32,08:00:00

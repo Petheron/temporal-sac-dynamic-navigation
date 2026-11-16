@@ -1,0 +1,3 @@
+job_name,run_name,config,arch,env,level_type,window,window_key,duration_s,seed_index,env_id,mem_gb,walltime
+bl_d_t030_s3,bl_d_w04_t030_s3,sac_bl_d_w04_t030_s3.yaml,bl,d,5,4,observation_stacks,3.0,3,420,32,08:00:00
+bl_d_t030_s4,bl_d_w04_t030_s4,sac_bl_d_w04_t030_s4.yaml,bl,d,5,4,observation_stacks,3.0,4,422,32,08:00:00

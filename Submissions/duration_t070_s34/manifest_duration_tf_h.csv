@@ -1,0 +1,3 @@
+job_name,run_name,config,arch,env,level_type,window,window_key,duration_s,seed_index,env_id,mem_gb,walltime
+tf_h_t070_s3,tf_h_w10_t070_s3,sac_tf_h_w10_t070_s3.yaml,tf,h,6,10,sequence_length,7.0,3,910,32,48:00:00
+tf_h_t070_s4,tf_h_w10_t070_s4,sac_tf_h_w10_t070_s4.yaml,tf,h,6,10,sequence_length,7.0,4,912,32,48:00:00

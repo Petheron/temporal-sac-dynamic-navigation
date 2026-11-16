@@ -1,0 +1,63 @@
+============================================================================
+PROBE 03  GATE READOUT AND RECURRENT COMPARISON
+============================================================================
+transformer  D:\Projects\temporal-sac-dynamic-navigation\Results\runs\tf_h_w10_t10.0s_s3\SAC_DRLNavigation\actor_dict_0
+recurrent    D:\Projects\temporal-sac-dynamic-navigation\Results\runs\ls_h_w10_t10.0s_s3\SAC_DRLNavigation\actor_dict_0
+torch        1.8.1+cu111
+seed         20261106
+
+transformer loaded cleanly, 57 tensors, d_model 256, 2 layers
+
+measured real activation window (64, 10, 512) at RMS 260.9
+
+============================================================================
+PART A  GATE PARAMETERS, READ STRAIGHT FROM THE CHECKPOINT
+============================================================================
+
+  layer  gate         bias mean   bias min   bias max   implied z at zero input
+  0      gate_attn       2.0347     1.8382     2.2885                  0.1156
+  0      gate_ff         2.0410     1.8479     2.2121                  0.1150
+  1      gate_attn       2.0269     1.7556     2.1965                  0.1164
+  1      gate_ff         2.0295     1.7271     2.3055                  0.1161
+
+============================================================================
+PART B  GATE BEHAVIOUR ON REAL ACTIVATIONS
+============================================================================
+
+  layer  gate         mean z    median z   sublayer size   movement
+  0      gate_attn     0.5333      1.0000         0.0056     0.6836
+  0      gate_ff       0.4179      0.0000         0.0193     0.6619
+  1      gate_attn     0.4571      0.0000         0.0049     0.6330
+  1      gate_ff       0.5580      1.0000         0.0248     0.7558
+
+============================================================================
+PART C  HISTORY ABLATION ACROSS INPUT MAGNITUDES
+============================================================================
+
+  input RMS        history relative   current relative   ratio
+  0.01                      0.0779             0.0199    3.9152
+  0.1                       0.0956             0.2227    0.4291
+  1                         0.4419             1.1137    0.3968
+  10                        0.5537             1.3971    0.3963
+  100                       0.6446             1.3658    0.4720
+  260.9                     0.0000             0.0626    0.0000   <-- the measured real activation
+  untrained                 0.0043             0.7045    0.0060   <-- untrained control at the same geometry
+
+============================================================================
+PART D  THE RECURRENT ARM, TESTED THE SAME WAY
+============================================================================
+  recurrent module loaded cleanly, input 512, hidden 256, 1 layer(s)
+
+  sequence  input RMS       history relative   current relative   ratio
+  10        1                         1.1182             1.1749    0.9518
+  10        100                       0.8777             1.3199    0.6650
+  20        1                         1.0591             1.1120    0.9524
+  20        100                       0.9142             1.3427    0.6809
+  50        1                         0.9313             1.0744    0.8668
+  50        100                       0.9156             1.3526    0.6769
+  10        14.43                     0.1112             0.2457    0.4525   <-- the measured real activation
+  10        untrained                 0.2769             0.4951    0.5594   <-- untrained control at the same geometry
+
+============================================================================
+
+============================================================================

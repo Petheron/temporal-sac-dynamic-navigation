@@ -25,7 +25,7 @@ MonoBehaviour:
   maxDist: 80
   kNeighbours: 8
   cubeSize: 5
-  poissonMinRadius: 5
+  poissonMinRadius: 3
   poissonSamplingK: 30
   poissonRadiusFactor: 1
   poissonUseRandomInitialPos: 1

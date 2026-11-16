@@ -1,0 +1,8 @@
+job_name=abl_seq15
+job_id=121820.hpc-head01
+config=sac_lstm_abl_seq15_depthwise_seed0.yaml
+config_subdir=ablation/production
+env_id=102
+node=hpc-exec02.hpc.uts.edu.au
+python_exit=killed_before_exit
+cleanup_at=2026-10-13T05:34:00Z

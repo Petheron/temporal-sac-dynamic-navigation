@@ -1,0 +1,4 @@
+job_name=tf_dw_s1
+job_id=112046.hpc-head01
+config=sac_transformer_moving_platform_depthwise_seed1.yaml
+completed=2026-10-07T16:58:05Z

@@ -1,0 +1,39 @@
+# The CETUS drl_nav environment, inventoried 5 October 2026
+# python 3.8.10, torch 1.8.2+cu111, CUDA 11.6.112, NVIDIA driver 510.47.10
+#
+# torch is installed separately and first, so it is not pinned below
+# Nothing below declares a torch dependency, so pip leaves that install alone
+#
+# Pinned where the version affects behaviour or is what the cluster runs
+# Transitive packages are left to pip and differ harmlessly by platform
+
+# The ML-Agents stack, exactly as on the cluster
+mlagents==0.27.0
+mlagents-envs==0.27.0
+protobuf==3.19.6
+grpcio==1.70.0
+cattrs==1.5.0
+attrs==25.3.0
+cloudpickle==3.1.2
+PyYAML==6.0.3
+pillow==10.4.0
+
+# Numerics
+numpy==1.19.0
+
+# Logging and analysis
+tensorboard==2.14.0
+tensorboard-data-server==0.7.2
+absl-py==2.3.1
+Markdown==3.7
+Werkzeug==3.0.6
+h5py==3.11.0
+matplotlib==3.6.0
+prettytable==3.11.0
+
+# Shared low-level
+six==1.17.0
+typing_extensions==4.13.2
+
+# mlagents 0.27.0 declares this on platform_system == "Windows"
+pypiwin32==223 ; platform_system == "Windows"

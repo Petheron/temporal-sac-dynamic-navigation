@@ -9,8 +9,10 @@ import time
 import torch.backends.cudnn
 import yaml
 import gc
+import sys
 
 from SAC_LSTM import SAC_LSTM
+from SAC_GTrXL import SAC_GTrXL
 from SAC import SAC
 from DataStructures import ReplayBuffer, PrioritizedReplayBuffer, LA3PReplayBuffer, LSTMReplayBuffer, \
     PrioritizedLSTMReplayBuffer
@@ -20,7 +22,7 @@ from EncoderUtils import NormalizerType, NetworkSettings, VisualSettings, Positi
 from NetworkUtils import list_to_torch
 
 
-def eval_policy(policy, env: Environment, num_eval_episodes=10):
+def eval_policy(policy, env: Environment, num_eval_episodes=10, memory_size: int = 0):
     """
     Runs a given policy on a provided evaluation environment for num_eval_episodes episodes per agent.
     """
@@ -35,8 +37,16 @@ def eval_policy(policy, env: Environment, num_eval_episodes=10):
     agent_ret = np.zeros(num_agents)
     agent_ep_len = np.zeros(num_agents, dtype=np.int32)
 
+    # Recurrent and attention policies carry state; plain SAC takes only the observation
+    use_memory = memory_size > 0
+    memories = torch.zeros([1, num_agents, memory_size], dtype=torch.float32, requires_grad=False) if use_memory else None
+
     while complete_eps < num_eval_episodes * num_agents:
-        new_actions, _ = policy.select_deterministic_action(o)
+        if use_memory:
+            new_actions, memories = policy.select_deterministic_action(o, memories)
+        else:
+            new_actions = policy.select_deterministic_action(o)
+
         o, r, terminals, truncated, _ = env.env_step(new_actions, o)
         is_dones = (terminals + truncated) > 0
         agent_ret += r
@@ -48,6 +58,10 @@ def eval_policy(policy, env: Environment, num_eval_episodes=10):
             episode_lens.extend(list(agent_ep_len[is_dones]))
             agent_ret[is_dones] = 0
             agent_ep_len[is_dones] = 0
+            if use_memory:
+                memories[:, is_dones, :] = 0
+            if hasattr(policy, "reset_context"):
+                policy.reset_context(is_dones)
 
     return np.mean(episode_returns), np.mean(episode_lens)
 
@@ -126,6 +140,25 @@ def main():
 
     params = arg_parser()
     env_params = params['environment_parameters']
+
+    print("=" * 72, flush=True)
+    print(f"[RUN CONTEXT] python                : {sys.version.split()[0]}  |  torch: {torch.__version__}", flush=True)
+    print(f"[RUN CONTEXT] cwd                   : {os.getcwd()}", flush=True)
+    print(f"[RUN CONTEXT] argv                  : {' '.join(sys.argv)}", flush=True)
+    print(f"[RUN CONTEXT] env_params type       : {type(env_params).__name__}", flush=True)
+    print(f"[RUN CONTEXT] env_params keys       : {sorted(env_params.keys()) if isinstance(env_params, dict) else '<not a dict>'}", flush=True)
+    print(f"[RUN CONTEXT] env_params (full)     : {env_params}", flush=True)
+    for _k in ("temporal_architecture", "transformer_n_heads", "transformer_n_layers",
+               "transformer_d_ff_multiplier", "transformer_use_gru_gating",
+               "burn_in_length", "overlap_length", "num_test_eps"):
+        _v = env_params.get(_k, "<ABSENT>") if isinstance(env_params, dict) else "<ABSENT>"
+        print(f"[RUN CONTEXT]   {_k:<28}: {_v!r} (type {type(_v).__name__})", flush=True)
+    print(f"[RUN CONTEXT] --sequence_length     : {params.get('sequence_length')!r} "
+          f"(type {type(params.get('sequence_length')).__name__})", flush=True)
+    print(f"[RUN CONTEXT] --memory_size         : {params.get('memory_size')!r} "
+          f"(type {type(params.get('memory_size')).__name__})", flush=True)
+    print("=" * 72, flush=True)
+
     env_dir = params['env_dir']
     env_name = params['env_name']
     results_dir = params['results_dir']
@@ -256,6 +289,20 @@ def main():
                                      ) if sequence_length > 0 and memory_size > 0 else None
     use_lstm = memory_settings is not None
 
+    temporal_architecture = env_params.get("temporal_architecture", "none")
+    use_transformer = temporal_architecture == "transformer" and memory_settings is not None
+    if use_transformer:
+        use_lstm = False
+
+    transformer_settings = {
+        'n_heads': int(env_params.get('transformer_n_heads', 4)),
+        'n_layers': int(env_params.get('transformer_n_layers', 2)),
+        'd_ff_multiplier': int(env_params.get('transformer_d_ff_multiplier', 4)),
+        'use_gru_gating': int(env_params.get('transformer_use_gru_gating', 1)) == 1,
+    } if use_transformer else None
+
+    use_temporal = memory_settings is not None
+
     batch_size = params["batch_size"]
 
     network_settings = NetworkSettings(hidden_size=params["hidden_size"],
@@ -295,20 +342,48 @@ def main():
               }
               }
 
+    Policy = None
     if policy_name == "SAC":
         kwargs = {**kwargs,
                   **{
                       "alpha": params["alpha"],
                       "alpha_lr": params["alpha_lr"]
+                    }
                   }
-                  }
-        if use_lstm:
-            kwargs = {**kwargs,
-                      "per_settings": per_settings,
-                      }
-        Policy = SAC_LSTM if use_lstm else SAC
+        if use_transformer:
+            kwargs = {**kwargs, "per_settings": per_settings,
+                      "transformer_settings": transformer_settings}
+            Policy = SAC_GTrXL
+        elif use_lstm:
+            kwargs = {**kwargs, "per_settings": per_settings,}
+            Policy = SAC_LSTM
+        else:
+            # Frame-stacking baseline uses plain SAC, which has no memory block or per_settings
+            Policy = SAC
     else:
         Policy = SAC
+
+    if Policy is None:
+        raise RuntimeError(
+            f"No policy class selected: policy_name={policy_name!r}, "
+            f"use_transformer={use_transformer}, use_lstm={use_lstm}, "
+            f"memory_settings={'set' if memory_settings is not None else 'None'}"
+        )
+
+    print("=" * 72, flush=True)
+    print(f"[POLICY SELECTION] policy_name           : {policy_name}", flush=True)
+    print(f"[POLICY SELECTION] temporal_architecture : {temporal_architecture!r}", flush=True)
+    print(f"[POLICY SELECTION] sequence_length       : {sequence_length!r} (type {type(sequence_length).__name__})", flush=True)
+    print(f"[POLICY SELECTION] memory_size           : {memory_size!r} (type {type(memory_size).__name__})", flush=True)
+    print(f"[POLICY SELECTION] burn_in_length        : {burn_in_length!r}", flush=True)
+    print(f"[POLICY SELECTION] overlap_length        : {overlap_length!r}", flush=True)
+    print(f"[POLICY SELECTION] memory_settings       : {'set' if memory_settings is not None else 'None'}", flush=True)
+    print(f"[POLICY SELECTION] use_transformer       : {use_transformer}", flush=True)
+    print(f"[POLICY SELECTION] use_lstm              : {use_lstm}", flush=True)
+    print(f"[POLICY SELECTION] use_temporal          : {use_temporal}", flush=True)
+    print(f"[POLICY SELECTION] transformer_settings  : {transformer_settings}", flush=True)
+    print(f"[POLICY SELECTION] Policy class          : {Policy.__name__}", flush=True)
+    print("=" * 72, flush=True)
 
     alpha = params["alpha"]
 
@@ -362,7 +437,7 @@ def main():
 
         print(f"\nRun: {run}, Seeds:: Env: {env.seed}\n")
 
-        if not use_lstm:
+        if not use_temporal:
             if experience_replay_type == ExperienceReplayType.PER or experience_replay_type == ExperienceReplayType.LAP or experience_replay_type == ExperienceReplayType.RELO:
                 replay_buffer = PrioritizedReplayBuffer(observation_specs, act_dim, buffer_size, num_agents,
                                                         alpha=per_alpha, beta_start=per_beta,
@@ -397,7 +472,7 @@ def main():
 
         # run initial deterministic evaluation before any training
         if num_test_eps > 0:
-            test_return, test_length = eval_policy(policy, eval_env, num_test_eps)
+            test_return, test_length = eval_policy(policy, eval_env, num_test_eps, memory_size if use_temporal else 0)
             print('\n')
             print(f"Untrained Test Return: {test_return:.3f}")
             test_returns[run, 0] = test_return
@@ -432,7 +507,7 @@ def main():
 
         # initialize hidden state for lstm (h0, c0), array is shape [num_agents, 1, memory_size//2]
         memories_out = torch.zeros([1, num_agents, params.get("memory_size")], dtype=torch.float32, requires_grad=False) \
-            if use_lstm else None
+            if use_temporal else None
 
         # Start environment and get initial state
         print(f"\nEnvironment Started for current run.")
@@ -453,7 +528,7 @@ def main():
                 eval_values["alpha"].extend([alpha] * num_agents)
             else:
                 # determine action via policy
-                if use_lstm:
+                if use_temporal:
                     action, memories_out = policy.select_stochastic_action(obs=obs, memories_in=memories_in)
                 else:
                     action = policy.select_stochastic_action(obs)
@@ -467,7 +542,7 @@ def main():
             episode_timesteps += 1
             episode_return += rewards.flatten()
 
-            if use_lstm:
+            if use_temporal:
                 replay_buffer.store(*experiences_to_store, memories_in, memories_out)
             else:
                 replay_buffer.store(*experiences_to_store)
@@ -476,7 +551,7 @@ def main():
             obs = next_obs
 
             # Update observation normalization for each complete trajectory.
-            if not use_lstm:
+            if not use_temporal:
                 complete_traj_length = episode_timesteps * dones.flatten()
                 for i, l in enumerate(complete_traj_length):
                     if l > 0:
@@ -502,6 +577,9 @@ def main():
             # reset memory to zero for done agents
             if memories_out is not None:
                 memories_out[:, dones.flatten(), :] = 0
+
+            if use_transformer:
+                policy.reset_context(dones.flatten())
 
             if current_step >= start_steps:
                 # Does a training update happen this step?
@@ -639,7 +717,7 @@ def main():
                 # run policy evaluation with deterministic policy
                 if num_test_eps > 0:
                     iteration = current_step // eval_freq
-                    test_return, test_length = eval_policy(policy, eval_env, num_test_eps)
+                    test_return, test_length = eval_policy(policy, eval_env, num_test_eps, memory_size if use_temporal else 0)
                     test_returns[run, iteration] = test_return
                     test_lengths[run, iteration] = test_length
                     print(

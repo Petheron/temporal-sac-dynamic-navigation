@@ -1,0 +1,13 @@
+pass,job_name,run_name,config,arch,env,level_type,window,window_key,duration_s,seed_index,env_id,mem_gb,walltime
+stack 8 frame stacking at 3.0 s,bl_h_w08_s3,bl_h_w08_t030_s3,sac_bl_h_w08_t030_s3.yaml,bl,h,6,8,observation_stacks,3.0,3,900,32,08:00:00
+stack 8 frame stacking at 3.0 s,bl_h_w08_s4,bl_h_w08_t030_s4,sac_bl_h_w08_t030_s4.yaml,bl,h,6,8,observation_stacks,3.0,4,902,32,08:00:00
+3.0 second LSTM,ls_h_t030_s3,ls_h_w10_t030_s3,sac_ls_h_w10_t030_s3.yaml,ls,h,6,10,sequence_length,3.0,3,910,32,48:00:00
+3.0 second LSTM,ls_h_t030_s4,ls_h_w10_t030_s4,sac_ls_h_w10_t030_s4.yaml,ls,h,6,10,sequence_length,3.0,4,912,32,48:00:00
+3.0 second Transformer,tf_h_t030_s3,tf_h_w10_t030_s3,sac_tf_h_w10_t030_s3.yaml,tf,h,6,10,sequence_length,3.0,3,920,32,48:00:00
+3.0 second Transformer,tf_h_t030_s4,tf_h_w10_t030_s4,sac_tf_h_w10_t030_s4.yaml,tf,h,6,10,sequence_length,3.0,4,922,32,48:00:00
+12.0 second frame stacking,bl_h_t120_s3,bl_h_w04_t120_s3,sac_bl_h_w04_t120_s3.yaml,bl,h,6,4,observation_stacks,12.0,3,930,32,08:00:00
+12.0 second frame stacking,bl_h_t120_s4,bl_h_w04_t120_s4,sac_bl_h_w04_t120_s4.yaml,bl,h,6,4,observation_stacks,12.0,4,932,32,08:00:00
+12.0 second LSTM,ls_h_t120_s3,ls_h_w10_t120_s3,sac_ls_h_w10_t120_s3.yaml,ls,h,6,10,sequence_length,12.0,3,940,32,48:00:00
+12.0 second LSTM,ls_h_t120_s4,ls_h_w10_t120_s4,sac_ls_h_w10_t120_s4.yaml,ls,h,6,10,sequence_length,12.0,4,942,32,48:00:00
+12.0 second Transformer,tf_h_t120_s3,tf_h_w10_t120_s3,sac_tf_h_w10_t120_s3.yaml,tf,h,6,10,sequence_length,12.0,3,950,32,48:00:00
+12.0 second Transformer,tf_h_t120_s4,tf_h_w10_t120_s4,sac_tf_h_w10_t120_s4.yaml,tf,h,6,10,sequence_length,12.0,4,952,32,48:00:00
