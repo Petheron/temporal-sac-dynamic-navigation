@@ -1,6 +1,6 @@
-# Temporal Architectures for DRL Navigation in Dynamic 3D Environments
+# Transformer-Based Temporal Sequence Modelling for 3D Navigation
 
-Code to reproduce the experiments from the Honours thesis "Temporal Architectures for Deep Reinforcement Learning Navigation in Dynamic Three-Dimensional Environments" by Adam Cameron, supervised by Dr Dale Grant.
+Code to reproduce the experiments from the Honours thesis "Transformer-Based Temporal Sequence Modelling for Dynamic Partially Observable 3D Navigation in Game Environments" by Adam Cameron, supervised by Dr Dale Grant.
 The thesis compares three ways of giving a Soft Actor-Critic agent access to its own history on a moving-platform navigation task: observation stacking, an LSTM recurrent layer, and a windowed causal Transformer.
 Every figure and every statistic in the thesis is produced by code here from the collected results, rather than transcribed by hand.
 See provenance, installation and run procedures below.
